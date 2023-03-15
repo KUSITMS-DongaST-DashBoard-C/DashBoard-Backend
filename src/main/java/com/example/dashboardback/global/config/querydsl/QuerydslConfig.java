@@ -1,4 +1,4 @@
-package com.example.dashboardback.global.config;
+package com.example.dashboardback.global.config.querydsl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
