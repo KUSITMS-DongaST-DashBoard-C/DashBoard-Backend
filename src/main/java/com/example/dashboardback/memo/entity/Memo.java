@@ -1,10 +1,9 @@
 package com.example.dashboardback.memo.entity;
 
-import com.example.dashboardback.admin.entity.Admin;
+import com.example.dashboardback.user.entity.User;
 import com.example.dashboardback.comment.entity.Comment;
 import com.example.dashboardback.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,8 +25,8 @@ public class Memo extends BaseTimeEntity {
     private boolean isDeleted;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="admin_id")
-    private Admin admin;
+    @JoinColumn(name="user_id")
+    private User user;
 
     @OneToMany(mappedBy="memo")
     private List<Comment> comments=new ArrayList<>();
@@ -36,8 +35,8 @@ public class Memo extends BaseTimeEntity {
      * 연관관계 매핑
      */
 
-    public void setAdmin(Admin admin){
-        this.admin=admin;
-        admin.getMemos().add(this);
+    public void setUser(User user){
+        this.user = user;
+        user.getMemos().add(this);
     }
 }
