@@ -26,6 +26,15 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom {
                 .fetchFirst());
     }
 
+    @Override
+    public String findByUserId(Long userId) {
+        return queryFactory.select(image.imageKey)
+                .where(image.user.userId.eq(userId))
+                .from(image)
+                .fetchFirst();
+    }
+
+
     private BooleanExpression isDeletedCheck() {
         return image.isDeleted.eq(false);
     }
