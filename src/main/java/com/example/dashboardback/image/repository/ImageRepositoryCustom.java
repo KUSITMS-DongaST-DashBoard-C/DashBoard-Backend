@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface ImageRepositoryCustom {
     Optional<Image> findNotDeletedByImageId(Long imageId);
+    String findByUserId(Long userId);
 }

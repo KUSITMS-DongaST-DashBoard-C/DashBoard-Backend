@@ -21,6 +21,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(queryFactory.selectFrom(user)
                 .where(user.email.eq(email))
+                .from(user)
                 .fetchFirst());
     }
 }

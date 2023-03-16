@@ -43,7 +43,6 @@ public abstract class UserDto {
     public static class LoginResponse {
         private String accessToken;
         private String refreshToken;
-        private String imageKey;
 
         public static LoginResponse from(TokenInfoResponse tokenInfoResponse) {
             return LoginResponse.builder()
@@ -51,8 +50,6 @@ public abstract class UserDto {
                     .refreshToken(tokenInfoResponse.getRefreshToken())
                     .build();
         }
-
-        private String imageKeys;
     }
 
 }
