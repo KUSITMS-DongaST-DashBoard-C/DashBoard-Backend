@@ -9,7 +9,9 @@ public class UserConstants {
     @RequiredArgsConstructor
     public enum EBoardResponseMessage{
         SIGNUP_SUCCESS("회원가입에 성공했습니다"),
-        LOGIN_SUCCESS("로그인에 성공했습니다");
+        LOGIN_SUCCESS("로그인에 성공했습니다"),
+
+        GETUSERINFO_SUCCESS("GET USER INFO");
         private final String message;
     }
 

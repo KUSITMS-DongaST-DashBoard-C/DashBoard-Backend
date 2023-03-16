@@ -12,15 +12,23 @@ import com.example.dashboardback.user.exception.NotFoundEmailException;
 import com.example.dashboardback.user.exception.OverlapUserException;
 import com.example.dashboardback.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -44,19 +52,55 @@ public class UserServiceImpl implements UserService{
                 }));
     }
     @Override
-    public LoginResponse login(LoginRequest loginRequest) {
-        TokenInfoResponse tokenInfoResponse = this.validateLogin(loginRequest);
+    public LoginResponse login(LoginRequest loginRequest, HttpSession httpSession) {
+        TokenInfoResponse tokenInfoResponse = this.validateLogin(loginRequest, httpSession);
         return LoginResponse.from(tokenInfoResponse);
     }
 
-    public TokenInfoResponse validateLogin(LoginRequest loginRequest) {
+    public TokenInfoResponse validateLogin(LoginRequest loginRequest, HttpSession httpSession) {
+        //(1) 유저 시큐리티에 저장
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
         Authentication authentication = this.authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        //(2) 로그인된 유저 세션에 저장
+        httpSession.setAttribute(authentication.getName(),"login");
+        //(3) 토큰 생성
         TokenInfoResponse tokenInfoResponse = this.tokenProvider.createToken(authentication);
         return tokenInfoResponse;
     }
+
+    public UserDto.UserInfoResponse getUserInfo(HttpSession httpSession){
+        //(1) 현 유저 정보 가져오기
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        String name = userRepository.findByEmail(email).orElseThrow().getName();
+
+        //(2) 활동중인 유저 정보 List 형태로 반환
+        List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
+        getActiveUser(activeUserResponseList,httpSession);
+
+        return UserDto.UserInfoResponse.from(name, email, activeUserResponseList);
+
+    }
+
+    public void getActiveUser(List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
+
+        Enumeration<String> enum_session = httpSession.getAttributeNames();
+
+        while(enum_session.hasMoreElements()) {
+
+            String key = enum_session.nextElement();
+            if(key.equals("SPRING_SECURITY_CONTEXT")) break;
+
+            User user = userRepository.findByEmail(key).orElseThrow();
+            UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.builder()
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .build();
+            activeUserResponseList.add(dto);
+        }
+    }
+
 
     @Override
     public User validateEmail(String email) {
