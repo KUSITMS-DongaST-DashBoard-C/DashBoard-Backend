@@ -9,8 +9,40 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class UserDto {
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @ApiModel(description = "관리자 프로필 및 현재 활동중인 관리자")
+    public static class UserInfoResponse {
+        private String email;
+        private String name;
+        private List<ActiveUserResponse> activeUser ;
+
+        public static UserInfoResponse from(String email, String name, List<ActiveUserResponse> activeUserResponseList) {
+            return UserInfoResponse.builder()
+                    .email(email)
+                    .name(name)
+                    .activeUser(activeUserResponseList)
+                    .build();
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @ApiModel(description = "관리자 프로필 및 현재 활동중인 관리자")
+    public static class ActiveUserResponse {
+        private String name;
+        private String email;
+        private String imgUrl;
+    }
+
     @Getter
     @AllArgsConstructor
     @Builder

@@ -8,18 +8,20 @@ import com.example.dashboardback.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Enumeration;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("user")
 @Api(tags = "User API")
+@Slf4j
 public class UserController {
     private final UserService userService;
 
@@ -32,8 +34,25 @@ public class UserController {
 
     @ApiOperation(value = "로그인", notes = "로그인을 합니다.")
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto<LoginResponse>> loginUser(@Valid @ModelAttribute UserDto.LoginRequest loginRequest) {
-        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGIN_SUCCESS.getMessage(), this.userService.login(loginRequest)));
+    public ResponseEntity<ResponseDto<LoginResponse>> loginUser(@Valid @ModelAttribute UserDto.LoginRequest loginRequest, HttpSession httpSession) {
+        LoginResponse loginResponse = this.userService.login(loginRequest, httpSession);
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGIN_SUCCESS.getMessage(),loginResponse));
     }
+
+    @ApiOperation(value = "관리자 정보", notes = "관리자 정보 및 활동중인 관리자 정보를 보여줍니다.")
+    @GetMapping("/info")
+    public ResponseEntity<ResponseDto<UserDto.UserInfoResponse>> getUserInfo(HttpSession httpSession){
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage. GETUSERINFO_SUCCESS.getMessage(),this.userService.getUserInfo(httpSession)));
+    }
+
+
+    @ApiOperation(value="로그아웃", notes = "유저를 로그아웃 시킵니다.")
+    @PostMapping("/logout")
+    public ResponseEntity<ResponseDto> logoutUser(HttpSession httpSession){
+        this.userService.logout(httpSession);
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGOUT_SUCCESS.getMessage()));
+    }
+
+
 
 }
