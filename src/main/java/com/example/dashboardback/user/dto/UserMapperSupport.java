@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -23,6 +21,6 @@ public class UserMapperSupport {
 
     @Named("getImageKey")
     public String getImageKey(Image image) {
-        return image.getImageKey();
+        return image.getImageUrl();
     }
 }
