@@ -36,7 +36,7 @@ public class MemoServiceImpl implements MemoService{
 
 
         CreateResponse createResponse=this.memoMapper.toCreateResponse(memo);
-        createResponse.setImageKey(imageRepository.findByUserId(SecurityUtils.getLoggedInUser().getUserId()));
+        createResponse.setImageUrl(imageRepository.findByUserId(SecurityUtils.getLoggedInUser().getUserId()));
         return createResponse;
     }
 

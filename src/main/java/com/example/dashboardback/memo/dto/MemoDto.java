@@ -36,7 +36,7 @@ public class MemoDto {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
         private String userName;
-        private String imageKey;
+        private String imageUrl;
     }
 
     @Getter
@@ -73,18 +73,18 @@ public class MemoDto {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
         private String userName;
-        private String imageKey;
+        private String imageUrl;
         private String userEmail;
 
         @QueryProjection
-        public GetAllResponse(Long memoId, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String userName, String userEmail, String imageKey){
+        public GetAllResponse(Long memoId, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String userName, String userEmail, String imageUrl){
             this.memoId=memoId;
             this.content=content;
             this.createdAt=createdAt;
             this.updatedAt=updatedAt;
             this.userName=userName;
             this.userEmail=userEmail;
-            this.imageKey=imageKey;
+            this.imageUrl=imageUrl;
         }
     }
 

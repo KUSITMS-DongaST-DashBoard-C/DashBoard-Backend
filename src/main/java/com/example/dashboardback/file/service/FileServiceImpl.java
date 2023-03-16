@@ -31,12 +31,16 @@ public class FileServiceImpl implements FileService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
     @Override
     public String saveFile(MultipartFile file) {
         ImageExtension.validateImageExtension(FilenameUtils.getExtension(file.getOriginalFilename()));
         final String key = UUID.randomUUID().toString();
+        final String url="https://dashboard-myprofile.s3."+region+".amazonaws.com/"+key;
         this.amazonS3Client.putObject(this.putObjectRequest(file, key));
-        return key;
+        return url;
     }
 
     private PutObjectRequest putObjectRequest(MultipartFile file, String filename) {

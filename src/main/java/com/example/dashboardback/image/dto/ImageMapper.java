@@ -8,6 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ImageMapper {
 
-    @Mapping(target = "imageKey", source = "key")
-    Image toEntity(String key);
+    @Mapping(target = "imageUrl", source = "url")
+    Image toEntity(String url);
 }

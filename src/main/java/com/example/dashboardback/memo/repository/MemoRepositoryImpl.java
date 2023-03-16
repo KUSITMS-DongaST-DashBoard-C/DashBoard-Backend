@@ -41,7 +41,7 @@ public class MemoRepositoryImpl implements MemoRepositoryCustom{
                         memo.updatedAt,
                         user.name,
                         user.email,
-                        image.imageKey))
+                        image.imageUrl))
                 .from(memo, user)
                 .leftJoin(memo.user, user)
                 .leftJoin(user.userImage, image)
@@ -59,7 +59,7 @@ public class MemoRepositoryImpl implements MemoRepositoryCustom{
                         memo.updatedAt,
                         user.name,
                         user.email,
-                        image.imageKey))
+                        image.imageUrl))
                 .from(memo, user)
                 .leftJoin(memo.user, user)
                 .leftJoin(user.userImage, image)

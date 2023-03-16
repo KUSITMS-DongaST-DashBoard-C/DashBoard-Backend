@@ -28,7 +28,7 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom {
 
     @Override
     public String findByUserId(Long userId) {
-        return queryFactory.select(image.imageKey)
+        return queryFactory.select(image.imageUrl)
                 .where(image.user.userId.eq(userId))
                 .from(image)
                 .fetchFirst();
