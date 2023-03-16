@@ -12,4 +12,5 @@ public interface UserService {
     User validateEmail(String email);
     LoginResponse login(UserDto.LoginRequest loginRequest, HttpSession httpSession);
     UserDto.UserInfoResponse getUserInfo(HttpSession httpSession);
+    void logout(HttpSession httpSession);
 }

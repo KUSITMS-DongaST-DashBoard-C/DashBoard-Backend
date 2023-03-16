@@ -101,6 +101,15 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    public void logout(HttpSession httpSession){
+        //(1) 현 유저 정보 가져오기
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        //(2) 세션 정보 삭제
+        httpSession.removeAttribute(email);
+        //(3) 시큐리티에서 유저 삭제시키기
+        SecurityContextHolder.clearContext();
+    }
+
 
     @Override
     public User validateEmail(String email) {

@@ -39,10 +39,20 @@ public class UserController {
         return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGIN_SUCCESS.getMessage(),loginResponse));
     }
 
+    @ApiOperation(value = "관리자 정보", notes = "관리자 정보 및 활동중인 관리자 정보를 보여줍니다.")
     @GetMapping("/info")
     public ResponseEntity<ResponseDto<UserDto.UserInfoResponse>> getUserInfo(HttpSession httpSession){
         return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage. GETUSERINFO_SUCCESS.getMessage(),this.userService.getUserInfo(httpSession)));
     }
+
+
+    @ApiOperation(value="로그아웃", notes = "유저를 로그아웃 시킵니다.")
+    @PostMapping("/logout")
+    public ResponseEntity<ResponseDto> logoutUser(HttpSession httpSession){
+        this.userService.logout(httpSession);
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGOUT_SUCCESS.getMessage()));
+    }
+
 
 
 }
