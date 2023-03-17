@@ -122,8 +122,7 @@ public class UserServiceImpl implements UserService{
         //(1) 현 유저 정보 가져오기
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         // Redis에 저장된 세션 정보 삭제
-        String sessionId = httpSession.getId();
-        redisTemplate.delete(sessionId);
+        redisTemplate.delete(EToken.eRefreshToken.getMessage() + email);
         //(2) 세션 정보 삭제
         httpSession.removeAttribute(email);
         //(3) 시큐리티에서 유저 삭제시키기
