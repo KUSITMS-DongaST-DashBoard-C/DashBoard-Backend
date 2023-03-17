@@ -4,6 +4,7 @@ import com.example.dashboardback.user.entity.User;
 import com.example.dashboardback.global.entity.BaseTimeEntity;
 import com.example.dashboardback.memo.entity.Memo;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,11 +13,13 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="comment_id")
     private Long commentId;
 
     private String content;
@@ -34,6 +37,7 @@ public class Comment extends BaseTimeEntity {
     /**
      * 연관관계 매핑
      */
+
 
     public void setMemo(Memo memo){
         this.memo=memo;

@@ -25,18 +25,23 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
+    @Column
     private String password;
 
+    @Column
     private String name;
 
+    @Column
     private String email;
 
+    @Column
     private String phoneNumber;
 
+    @Column
     private boolean isDeleted;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToOne(mappedBy = "user")
     private Image userImage;
