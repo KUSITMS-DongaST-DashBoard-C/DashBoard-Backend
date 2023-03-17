@@ -2,6 +2,7 @@ package com.example.dashboardback.user.entity;
 
 
 import com.example.dashboardback.comment.entity.Comment;
+import com.example.dashboardback.global.entity.BaseTimeEntity;
 import com.example.dashboardback.image.entity.Image;
 import com.example.dashboardback.memo.entity.Memo;
 import com.example.dashboardback.user.constant.UserConstants;
@@ -21,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class User implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
