@@ -54,6 +54,8 @@ dependencies {
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.11.1003'
 
 	implementation 'commons-io:commons-io:2.11.0'
+	implementation 'org.springframework.session:spring-session-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {
