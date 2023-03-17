@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<GetResponse> getAllCommentsByBoardId(Long memoId) {
+    public List<GetResponse> getAllCommentsByMemoId(Long memoId) {
         List<Comment> allCommentsByBoardId = this.commentRepository.findAllCommentsByMemoId(memoId);
         List<GetResponse> result = new ArrayList<>();
         Map<Long, GetResponse> map = new HashMap<>();
