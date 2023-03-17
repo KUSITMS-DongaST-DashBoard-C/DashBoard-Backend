@@ -55,7 +55,7 @@ public class UserController {
 
     @ApiOperation(value="전체 로그아웃", notes = "모든 유저를 로그아웃 시킵니다.")
     @PostMapping("/logoutAll")
-    public ResponseEntity<ResponseDto> logoutUser(HttpSession httpSession){
+    public ResponseEntity<ResponseDto> logoutUserAll(){
         this.userService.logoutAll();
         return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGOUT_SUCCESS.getMessage()));
     }
