@@ -1,5 +1,7 @@
 package com.example.dashboardback.memo.dto;
 
+import com.example.dashboardback.comment.dto.CommentDto;
+import com.example.dashboardback.comment.dto.CommentDto.GetResponse;
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,6 +12,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MemoDto {
 

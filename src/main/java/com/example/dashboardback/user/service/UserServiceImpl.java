@@ -13,29 +13,31 @@ import com.example.dashboardback.user.exception.OverlapUserException;
 import com.example.dashboardback.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService{
+
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider tokenProvider;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public void singup(UserDto.SignupRequest signupRequest) {
@@ -66,6 +68,11 @@ public class UserServiceImpl implements UserService{
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //(2) 로그인된 유저 세션에 저장
         httpSession.setAttribute(authentication.getName(),"login");
+
+        // Redis에 세션 저장
+        String sessionId = UUID.randomUUID().toString();
+        redisTemplate.opsForValue().set(sessionId, authentication);
+
         //(3) 토큰 생성
         TokenInfoResponse tokenInfoResponse = this.tokenProvider.createToken(authentication);
         return tokenInfoResponse;
@@ -78,22 +85,22 @@ public class UserServiceImpl implements UserService{
 
         //(2) 활동중인 유저 정보 List 형태로 반환
         List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
-        getActiveUser(activeUserResponseList,httpSession);
+        getActiveUser(email, activeUserResponseList,httpSession);
 
         return UserDto.UserInfoResponse.from(name, email, activeUserResponseList);
 
     }
 
-    public void getActiveUser(List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
+    public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
 
-        Enumeration<String> enum_session = httpSession.getAttributeNames();
+        Set<String> redisSessionKeys = redisTemplate.keys("*");
 
-        while(enum_session.hasMoreElements()) {
-
-            String key = enum_session.nextElement();
-            if(key.equals("SPRING_SECURITY_CONTEXT")) break;
-
-            User user = userRepository.findByEmail(key).orElseThrow();
+        for (String redisSessionKey : redisSessionKeys) {
+            User user = (User) redisTemplate.opsForValue().get(redisSessionKey);
+            if (user.getEmail().equals(email)) {
+                // 로그인한 유저는 제외하고 활성화된 사용자 목록에 추가
+                continue;
+            }
             UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.builder()
                     .name(user.getName())
                     .email(user.getEmail())
@@ -105,6 +112,9 @@ public class UserServiceImpl implements UserService{
     public void logout(HttpSession httpSession){
         //(1) 현 유저 정보 가져오기
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        // Redis에 저장된 세션 정보 삭제
+        String sessionId = httpSession.getId();
+        redisTemplate.delete(sessionId);
         //(2) 세션 정보 삭제
         httpSession.removeAttribute(email);
         //(3) 시큐리티에서 유저 삭제시키기
