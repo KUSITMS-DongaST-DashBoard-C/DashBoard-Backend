@@ -74,30 +74,30 @@ public class UserServiceImpl implements UserService{
     public UserDto.UserInfoResponse getUserInfo(HttpSession httpSession){
         //(1) 현 유저 정보 가져오기
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        String name = userRepository.findByEmail(email).orElseThrow().getName();
+        User user = userRepository.findByEmail(email).orElseThrow();
 
         //(2) 활동중인 유저 정보 List 형태로 반환
         List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
-        getActiveUser(activeUserResponseList,httpSession);
+        getActiveUser(email,activeUserResponseList,httpSession);
 
-        return UserDto.UserInfoResponse.from(name, email, activeUserResponseList);
+        return UserDto.UserInfoResponse.from(user.getName(), email, user.getUserImage().getImageUrl(), activeUserResponseList);
 
     }
 
-    public void getActiveUser(List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
+    public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
 
         Enumeration<String> enum_session = httpSession.getAttributeNames();
 
         while(enum_session.hasMoreElements()) {
 
             String key = enum_session.nextElement();
+
             if(key.equals("SPRING_SECURITY_CONTEXT")) break;
+            if(key.equals(email)) continue;
 
             User user = userRepository.findByEmail(key).orElseThrow();
-            UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.builder()
-                    .name(user.getName())
-                    .email(user.getEmail())
-                    .build();
+            UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.from
+                    (user.getName(), user.getEmail(), user.getUserImage().getImageUrl());
             activeUserResponseList.add(dto);
         }
     }

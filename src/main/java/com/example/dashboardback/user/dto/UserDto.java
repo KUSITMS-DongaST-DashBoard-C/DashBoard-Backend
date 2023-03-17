@@ -20,12 +20,15 @@ public abstract class UserDto {
     public static class UserInfoResponse {
         private String email;
         private String name;
+        private String imgUrl;
+
         private List<ActiveUserResponse> activeUser ;
 
-        public static UserInfoResponse from(String email, String name, List<ActiveUserResponse> activeUserResponseList) {
+        public static UserInfoResponse from(String email, String name, String imgUrl,List<ActiveUserResponse> activeUserResponseList) {
             return UserInfoResponse.builder()
                     .email(email)
                     .name(name)
+                    .imgUrl(imgUrl)
                     .activeUser(activeUserResponseList)
                     .build();
         }
@@ -39,6 +42,14 @@ public abstract class UserDto {
         private String name;
         private String email;
         private String imgUrl;
+
+        public static ActiveUserResponse from(String name, String email, String imgUrl){
+            return ActiveUserResponse.builder()
+                    .name(name)
+                    .email(email)
+                    .imgUrl(imgUrl)
+                    .build();
+        }
     }
 
     @Getter
