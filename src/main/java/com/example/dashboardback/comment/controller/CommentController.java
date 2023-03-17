@@ -41,7 +41,7 @@ public class CommentController {
     @GetMapping("/{memoId}")
     public ResponseEntity<ResponseDto<List<GetResponse>>> getAllComments(@PathVariable Long memoId){
         return ResponseEntity.ok(ResponseDto.create(ECommentResponseMessage.GET_ALL_DETAIL_COMMENTS_SUCCESS.getMessage(),
-                this.commentService.getAllCommentsByBoardId(memoId)));
+                this.commentService.getAllCommentsByMemoId(memoId)));
     }
 }
 
