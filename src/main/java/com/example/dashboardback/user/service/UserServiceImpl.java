@@ -81,13 +81,13 @@ public class UserServiceImpl implements UserService{
     public UserDto.UserInfoResponse getUserInfo(HttpSession httpSession){
         //(1) 현 유저 정보 가져오기
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        String name = userRepository.findByEmail(email).orElseThrow().getName();
+        User user = userRepository.findByEmail(email).orElseThrow();
 
         //(2) 활동중인 유저 정보 List 형태로 반환
         List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
         getActiveUser(email, activeUserResponseList,httpSession);
 
-        return UserDto.UserInfoResponse.from(name, email, activeUserResponseList);
+        return UserDto.UserInfoResponse.from(user.getName(), email, user.getUserImage().getImageUrl(), activeUserResponseList);
 
     }
 
@@ -105,6 +105,7 @@ public class UserServiceImpl implements UserService{
                     .name(user.getName())
                     .email(user.getEmail())
                     .build();
+                    
             activeUserResponseList.add(dto);
         }
     }
