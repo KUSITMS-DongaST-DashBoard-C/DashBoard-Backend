@@ -78,20 +78,22 @@ public class UserServiceImpl implements UserService{
 
         //(2) 활동중인 유저 정보 List 형태로 반환
         List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
-        getActiveUser(activeUserResponseList,httpSession);
+        getActiveUser(email,activeUserResponseList,httpSession);
 
         return UserDto.UserInfoResponse.from(user.getName(), email, user.getUserImage().getImageUrl(), activeUserResponseList);
 
     }
 
-    public void getActiveUser(List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
+    public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
 
         Enumeration<String> enum_session = httpSession.getAttributeNames();
 
         while(enum_session.hasMoreElements()) {
 
             String key = enum_session.nextElement();
+
             if(key.equals("SPRING_SECURITY_CONTEXT")) break;
+            if(key.equals(email)) continue;
 
             User user = userRepository.findByEmail(key).orElseThrow();
             UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.from
