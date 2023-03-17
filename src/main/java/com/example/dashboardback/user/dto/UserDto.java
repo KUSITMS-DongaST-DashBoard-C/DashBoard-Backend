@@ -22,6 +22,7 @@ public abstract class UserDto {
     public static class UserInfoResponse {
         private String email;
         private String name;
+
         private List<ActiveUserResponse> activeUser ;
 
         public static UserInfoResponse from(String email, String name, List<ActiveUserResponse> activeUserResponseList) {
