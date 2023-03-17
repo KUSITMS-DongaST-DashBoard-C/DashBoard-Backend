@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemoDto {
@@ -68,7 +69,6 @@ public class MemoDto {
 
     @Setter
     @Getter
-    @Builder
     @ApiModel(description = "메모 전체 조회를 위한 응답객체")
     public static class GetAllResponse {
         private Long memoId;
@@ -78,6 +78,7 @@ public class MemoDto {
         private String userName;
         private String imageUrl;
         private String userEmail;
+        private List<GetResponse> comments=new ArrayList<>();
 
         @QueryProjection
         public GetAllResponse(Long memoId, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String userName, String userEmail, String imageUrl){

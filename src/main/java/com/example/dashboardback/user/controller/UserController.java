@@ -34,25 +34,30 @@ public class UserController {
 
     @ApiOperation(value = "로그인", notes = "로그인을 합니다.")
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto<LoginResponse>> loginUser(@Valid @ModelAttribute UserDto.LoginRequest loginRequest, HttpSession httpSession) {
-        LoginResponse loginResponse = this.userService.login(loginRequest, httpSession);
+    public ResponseEntity<ResponseDto<LoginResponse>> loginUser(@Valid @ModelAttribute UserDto.LoginRequest loginRequest) {
+        LoginResponse loginResponse = this.userService.login(loginRequest);
         return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGIN_SUCCESS.getMessage(),loginResponse));
     }
 
     @ApiOperation(value = "관리자 정보", notes = "관리자 정보 및 활동중인 관리자 정보를 보여줍니다.")
     @GetMapping("/info")
-    public ResponseEntity<ResponseDto<UserDto.UserInfoResponse>> getUserInfo(HttpSession httpSession){
-        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage. GETUSERINFO_SUCCESS.getMessage(),this.userService.getUserInfo(httpSession)));
+    public ResponseEntity<ResponseDto<UserDto.UserInfoResponse>> getUserInfo(){
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage. GETUSERINFO_SUCCESS.getMessage(),this.userService.getUserInfo()));
     }
 
 
     @ApiOperation(value="로그아웃", notes = "유저를 로그아웃 시킵니다.")
     @PostMapping("/logout")
-    public ResponseEntity<ResponseDto> logoutUser(HttpSession httpSession){
-        this.userService.logout(httpSession);
+    public ResponseEntity<ResponseDto> logoutUser(){
+        this.userService.logout();
         return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGOUT_SUCCESS.getMessage()));
     }
 
-
+    @ApiOperation(value="전체 로그아웃", notes = "모든 유저를 로그아웃 시킵니다.")
+    @PostMapping("/logoutAll")
+    public ResponseEntity<ResponseDto> logoutUserAll(){
+        this.userService.logoutAll();
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGOUT_SUCCESS.getMessage()));
+    }
 
 }
