@@ -10,7 +10,8 @@ import javax.servlet.http.HttpSession;
 public interface UserService {
     void singup(SignupRequest signupRequest);
     User validateEmail(String email);
-    LoginResponse login(UserDto.LoginRequest loginRequest, HttpSession httpSession);
-    UserDto.UserInfoResponse getUserInfo(HttpSession httpSession);
-    void logout(HttpSession httpSession);
+    LoginResponse login(UserDto.LoginRequest loginRequest);
+    UserDto.UserInfoResponse getUserInfo();
+    void logout();
+    void logoutAll();
 }

@@ -57,45 +57,35 @@ public class UserServiceImpl implements UserService{
                 }));
     }
     @Override
-    public LoginResponse login(LoginRequest loginRequest, HttpSession httpSession) {
-        TokenInfoResponse tokenInfoResponse = this.validateLogin(loginRequest, httpSession);
+    public LoginResponse login(LoginRequest loginRequest) {
+        TokenInfoResponse tokenInfoResponse = this.validateLogin(loginRequest);
         return LoginResponse.from(tokenInfoResponse);
     }
 
-    public TokenInfoResponse validateLogin(LoginRequest loginRequest, HttpSession httpSession) {
-        //(1) 유저 시큐리티에 저장
+    public TokenInfoResponse validateLogin(LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
         Authentication authentication = this.authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //(2) 로그인된 유저 세션에 저장
-        httpSession.setAttribute(authentication.getName(),"login");
 
-        //(3) 토큰 생성
         TokenInfoResponse tokenInfoResponse = this.tokenProvider.createToken(authentication);
 
-        // Redis에 세션 저장
-        String key = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(EToken.eRefreshToken.getMessage() + authentication.getName(),
                 authentication.getName(),tokenInfoResponse.getRefreshTokenExpirationTime(), TimeUnit.MILLISECONDS);
 
         return tokenInfoResponse;
     }
 
-    public UserDto.UserInfoResponse getUserInfo(HttpSession httpSession){
-        //(1) 현 유저 정보 가져오기
+    @Override
+    public UserDto.UserInfoResponse getUserInfo(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email).orElseThrow();
-
-        //(2) 활동중인 유저 정보 List 형태로 반환
         List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
-        getActiveUser(email, activeUserResponseList,httpSession);
-
+        getActiveUser(email, activeUserResponseList);
         return UserDto.UserInfoResponse.from(user.getName(), email, user.getUserImage().getImageUrl(), activeUserResponseList);
-
     }
 
-    public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
+    public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList){
 
         Set<String> redisSessionKeys = redisTemplate.keys("RT:*");
 
@@ -105,7 +95,6 @@ public class UserServiceImpl implements UserService{
             System.out.println(redisSessionValue);
             User user = validateEmail(redisSessionValue);
             if (user.getEmail().equals(email)) {
-                // 로그인한 유저는 제외하고 활성화된 사용자 목록에 추가
                 continue;
             }
             UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.builder()
@@ -118,14 +107,17 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    public void logout(HttpSession httpSession){
-        //(1) 현 유저 정보 가져오기
+    @Override
+    public void logout(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        // Redis에 저장된 세션 정보 삭제
         redisTemplate.delete(EToken.eRefreshToken.getMessage() + email);
-        //(2) 세션 정보 삭제
-        httpSession.removeAttribute(email);
-        //(3) 시큐리티에서 유저 삭제시키기
+        SecurityContextHolder.clearContext();
+    }
+
+    @Override
+    public void logoutAll() {
+        Set<String> redisSessionKeys = redisTemplate.keys("RT:*");
+        redisTemplate.delete(redisSessionKeys);
         SecurityContextHolder.clearContext();
     }
 
