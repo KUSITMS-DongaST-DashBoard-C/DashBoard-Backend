@@ -5,6 +5,7 @@ import com.example.dashboardback.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Image extends BaseTimeEntity {
+public class Image extends BaseTimeEntity implements Serializable {
 
     @Setter(value = AccessLevel.NONE)
     @Id
