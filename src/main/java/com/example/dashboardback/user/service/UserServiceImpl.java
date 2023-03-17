@@ -3,6 +3,7 @@ package com.example.dashboardback.user.service;
 import com.example.dashboardback.global.config.security.jwt.JwtTokenProvider;
 import com.example.dashboardback.global.dto.TokenInfoResponse;
 import com.example.dashboardback.user.constant.UserConstants;
+import com.example.dashboardback.user.constant.UserConstants.EToken;
 import com.example.dashboardback.user.dto.UserDto;
 import com.example.dashboardback.user.dto.UserDto.LoginRequest;
 import com.example.dashboardback.user.dto.UserDto.LoginResponse;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Service
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserService{
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider tokenProvider;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate redisTemplate;
 
     @Override
     public void singup(UserDto.SignupRequest signupRequest) {
@@ -69,12 +71,14 @@ public class UserServiceImpl implements UserService{
         //(2) 로그인된 유저 세션에 저장
         httpSession.setAttribute(authentication.getName(),"login");
 
-        // Redis에 세션 저장
-        String sessionId = UUID.randomUUID().toString();
-        redisTemplate.opsForValue().set(sessionId, authentication);
-
         //(3) 토큰 생성
         TokenInfoResponse tokenInfoResponse = this.tokenProvider.createToken(authentication);
+
+        // Redis에 세션 저장
+        String key = UUID.randomUUID().toString();
+        redisTemplate.opsForValue().set(EToken.eRefreshToken.getMessage() + authentication.getName(),
+                authentication.getName(),tokenInfoResponse.getRefreshTokenExpirationTime(), TimeUnit.MILLISECONDS);
+
         return tokenInfoResponse;
     }
 
@@ -93,10 +97,13 @@ public class UserServiceImpl implements UserService{
 
     public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList, HttpSession httpSession){
 
-        Set<String> redisSessionKeys = redisTemplate.keys("*");
+        Set<String> redisSessionKeys = redisTemplate.keys("RT:*");
 
         for (String redisSessionKey : redisSessionKeys) {
-            User user = (User) redisTemplate.opsForValue().get(redisSessionKey);
+            System.out.println(redisSessionKey);
+            String redisSessionValue = (String)redisTemplate.opsForValue().get(redisSessionKey);
+            System.out.println(redisSessionValue);
+            User user = validateEmail(redisSessionValue);
             if (user.getEmail().equals(email)) {
                 // 로그인한 유저는 제외하고 활성화된 사용자 목록에 추가
                 continue;
@@ -104,6 +111,7 @@ public class UserServiceImpl implements UserService{
             UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.builder()
                     .name(user.getName())
                     .email(user.getEmail())
+                    .imgUrl(user.getUserImage().getImageUrl())
                     .build();
                     
             activeUserResponseList.add(dto);
