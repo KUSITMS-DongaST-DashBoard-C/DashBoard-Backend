@@ -15,7 +15,12 @@ public class UserConstants {
         GETUSERINFO_SUCCESS("GET USER INFO");
         private final String message;
     }
-
+    @Getter
+    @RequiredArgsConstructor
+    public enum EToken{
+        eRefreshToken("RT:");
+        private final String message;
+    }
     @Getter
     @RequiredArgsConstructor
     public enum UserExceptionList {
