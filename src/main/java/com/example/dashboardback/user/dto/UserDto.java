@@ -9,8 +9,6 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public abstract class UserDto {
@@ -76,7 +74,6 @@ public abstract class UserDto {
     public static class LoginResponse {
         private String accessToken;
         private String refreshToken;
-        private String imageKey;
 
         public static LoginResponse from(TokenInfoResponse tokenInfoResponse) {
             return LoginResponse.builder()
@@ -84,8 +81,6 @@ public abstract class UserDto {
                     .refreshToken(tokenInfoResponse.getRefreshToken())
                     .build();
         }
-
-        private String imageKeys;
     }
 
 }

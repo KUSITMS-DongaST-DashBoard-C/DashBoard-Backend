@@ -1,9 +1,10 @@
 package com.example.dashboardback.memo.entity;
 
-import com.example.dashboardback.user.entity.User;
 import com.example.dashboardback.comment.entity.Comment;
 import com.example.dashboardback.global.entity.BaseTimeEntity;
+import com.example.dashboardback.user.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,10 +15,12 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 public class Memo extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="memo_id")
     private Long memoId;
 
     private String content;
@@ -34,6 +37,7 @@ public class Memo extends BaseTimeEntity {
     /**
      * 연관관계 매핑
      */
+
 
     public void setUser(User user){
         this.user = user;

@@ -1,10 +1,12 @@
 package com.example.dashboardback.user.entity;
 
+
 import com.example.dashboardback.comment.entity.Comment;
-import com.example.dashboardback.global.entity.BaseTimeEntity;
 import com.example.dashboardback.image.entity.Image;
 import com.example.dashboardback.memo.entity.Memo;
 import com.example.dashboardback.user.constant.UserConstants;
+import com.example.dashboardback.user.constant.UserConstants.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,26 +18,30 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class User extends BaseTimeEntity {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Enumerated(EnumType.STRING)
-    private UserConstants.Role role;
-
+    @Column
     private String password;
 
+    @Column
     private String name;
 
+    @Column
     private String email;
 
+    @Column
     private String phoneNumber;
 
+    @Column
     private boolean isDeleted;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToOne(mappedBy = "user")
     private Image userImage;
@@ -53,8 +59,11 @@ public class User extends BaseTimeEntity {
     /**
      * 연관관계 매핑
      */
+
     public void setUserImage(Image image) {
         this.userImage = image;
         image.setUser(this);
     }
+
+
 }

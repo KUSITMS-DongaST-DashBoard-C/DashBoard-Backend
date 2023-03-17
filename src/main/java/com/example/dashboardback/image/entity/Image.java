@@ -18,7 +18,7 @@ public class Image extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
-    private String imageKey;
+    private String imageUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -26,13 +26,13 @@ public class Image extends BaseTimeEntity {
 
     private boolean isDeleted;
 
-    public Image(String imageKey) {
-        this.imageKey = imageKey;
+    public Image(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public static Image from(String key) {
+    public static Image from(String url) {
         return Image.builder()
-                .imageKey(key)
+                .imageUrl(url)
                 .build();
     }
 }
