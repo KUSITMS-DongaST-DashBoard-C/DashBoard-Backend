@@ -90,9 +90,7 @@ public class UserServiceImpl implements UserService{
         Set<String> redisSessionKeys = redisTemplate.keys("RT:*");
 
         for (String redisSessionKey : redisSessionKeys) {
-            System.out.println(redisSessionKey);
             String redisSessionValue = (String)redisTemplate.opsForValue().get(redisSessionKey);
-            System.out.println(redisSessionValue);
             User user = validateEmail(redisSessionValue);
             if (user.getEmail().equals(email)) {
                 continue;
@@ -116,7 +114,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void logoutAll() {
-        Set<String> redisSessionKeys = redisTemplate.keys("RT:*");
+        Set<String> redisSessionKeys = redisTemplate.keys("*");
         redisTemplate.delete(redisSessionKeys);
         SecurityContextHolder.clearContext();
     }
