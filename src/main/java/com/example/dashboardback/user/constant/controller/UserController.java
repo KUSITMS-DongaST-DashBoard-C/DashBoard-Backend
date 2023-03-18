@@ -1,4 +1,4 @@
-package com.example.dashboardback.user.controller;
+package com.example.dashboardback.user.constant.controller;
 
 import com.example.dashboardback.global.dto.ResponseDto;
 import com.example.dashboardback.user.constant.UserConstants;
