@@ -16,8 +16,8 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("user")
-@Api(tags = "User API")
+@RequestMapping("admin")
+@Api(tags = "Admin API")
 @Slf4j
 public class AdminController {
     private final AdminService adminService;
