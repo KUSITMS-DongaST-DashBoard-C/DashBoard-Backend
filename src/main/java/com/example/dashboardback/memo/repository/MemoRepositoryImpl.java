@@ -18,7 +18,7 @@ import java.util.*;
 import static com.example.dashboardback.comment.dto.CommentDto.GetResponse.convertCommentToDto;
 import static com.example.dashboardback.image.entity.QImage.image;
 import static com.example.dashboardback.memo.entity.QMemo.memo;
-import static com.example.dashboardback.user.entity.QUser.user;
+import static com.example.dashboardback.admin.entity.QUser.user;
 
 public class MemoRepositoryImpl implements MemoRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;

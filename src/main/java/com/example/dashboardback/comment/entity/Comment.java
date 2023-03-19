@@ -1,6 +1,6 @@
 package com.example.dashboardback.comment.entity;
 
-import com.example.dashboardback.user.entity.User;
+import com.example.dashboardback.admin.entity.Admin;
 import com.example.dashboardback.global.entity.BaseTimeEntity;
 import com.example.dashboardback.memo.entity.Memo;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class Comment extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Admin admin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Memo_id")
@@ -44,8 +44,8 @@ public class Comment extends BaseTimeEntity {
         memo.getComments().add(this);
     }
 
-    public void setUser(User user){
-        this.user = user;
-        user.getComments().add(this);
+    public void setAdmin(Admin admin){
+        this.admin = admin;
+        admin.getComments().add(this);
     }
 }

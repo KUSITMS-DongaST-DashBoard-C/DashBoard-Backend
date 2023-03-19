@@ -10,7 +10,7 @@ import com.example.dashboardback.memo.entity.Memo;
 import com.example.dashboardback.memo.exception.NotFoundMemoException;
 import com.example.dashboardback.memo.exception.NotMemoWriterException;
 import com.example.dashboardback.memo.repository.MemoRepository;
-import com.example.dashboardback.user.dto.PaginationDto;
+import com.example.dashboardback.admin.dto.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,6 +71,6 @@ public class MemoServiceImpl implements MemoService{
     }
 
     public void validateCreatedUser(Memo memo){
-        if(!(memo.getUser().getUserId().equals(SecurityUtils.getLoggedInUser().getUserId()))) throw new NotMemoWriterException();
+        if(!(memo.getAdmin().getUserId().equals(SecurityUtils.getLoggedInUser().getUserId()))) throw new NotMemoWriterException();
     }
 }

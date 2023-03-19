@@ -2,7 +2,7 @@ package com.example.dashboardback.memo.service;
 
 import com.example.dashboardback.memo.dto.MemoDto.*;
 import com.example.dashboardback.memo.entity.Memo;
-import com.example.dashboardback.user.dto.PaginationDto;
+import com.example.dashboardback.admin.dto.PaginationDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

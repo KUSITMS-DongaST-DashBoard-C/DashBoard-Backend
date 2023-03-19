@@ -1,6 +1,6 @@
 package com.example.dashboardback.global.config.security.jwt;
 
-import com.example.dashboardback.user.entity.User;
+import com.example.dashboardback.admin.entity.Admin;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,21 +13,21 @@ import java.util.Collections;
 @Getter
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
-    private final User user;
+    private final Admin admin;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(this.user.getRole().name()));
+        return Collections.singleton(new SimpleGrantedAuthority(this.admin.getRole().name()));
     }
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return this.admin.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getEmail();
+        return this.admin.getEmail();
     }
 
     @Override

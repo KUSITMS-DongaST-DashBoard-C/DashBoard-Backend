@@ -1,14 +1,10 @@
-package com.example.dashboardback.user.entity;
+package com.example.dashboardback.admin.entity;
 
 
 import com.example.dashboardback.comment.entity.Comment;
-import com.example.dashboardback.global.entity.BaseTimeEntity;
 import com.example.dashboardback.image.entity.Image;
 import com.example.dashboardback.memo.entity.Memo;
-import com.example.dashboardback.user.constant.UserConstants;
-import com.example.dashboardback.user.constant.UserConstants.Role;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
+import com.example.dashboardback.admin.constant.AdminConstants.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +17,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Data
-public class User implements Serializable {
+public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -44,13 +40,13 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "admin")
     private Image userImage;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="admin")
     private List<Memo> memos=new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="admin")
     private List<Comment> comments=new ArrayList<>();
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
@@ -63,7 +59,7 @@ public class User implements Serializable {
 
     public void setUserImage(Image image) {
         this.userImage = image;
-        image.setUser(this);
+        image.setAdmin(this);
     }
 
 

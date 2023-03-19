@@ -2,7 +2,7 @@ package com.example.dashboardback.memo.entity;
 
 import com.example.dashboardback.comment.entity.Comment;
 import com.example.dashboardback.global.entity.BaseTimeEntity;
-import com.example.dashboardback.user.entity.User;
+import com.example.dashboardback.admin.entity.Admin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class Memo extends BaseTimeEntity {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private User user;
+    private Admin admin;
 
     @OneToMany(mappedBy="memo")
     private List<Comment> comments=new ArrayList<>();
@@ -39,8 +39,8 @@ public class Memo extends BaseTimeEntity {
      */
 
 
-    public void setUser(User user){
-        this.user = user;
-        user.getMemos().add(this);
+    public void setAdmin(Admin admin){
+        this.admin = admin;
+        admin.getMemos().add(this);
     }
 }

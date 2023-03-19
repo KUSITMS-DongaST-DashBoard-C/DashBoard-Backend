@@ -1,4 +1,4 @@
-package com.example.dashboardback.user.dto;
+package com.example.dashboardback.admin.dto;
 
 import com.example.dashboardback.global.dto.TokenInfoResponse;
 import io.swagger.annotations.ApiModel;
@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-public abstract class UserDto {
+public abstract class AdminDto {
 
     @Getter
     @AllArgsConstructor

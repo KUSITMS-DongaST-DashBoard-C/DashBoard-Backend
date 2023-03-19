@@ -12,7 +12,7 @@ import org.mapstruct.Mapping;
 public interface MemoMapper {
 
     @Mapping(target = "content", source = "createRequest.content")
-    @Mapping(target = "user", expression = "java(SecurityUtils.getLoggedInUser())")
+    @Mapping(target = "admin", expression = "java(SecurityUtils.getLoggedInUser())")
     Memo toEntity(CreateRequest createRequest);
 
     @Mapping(target="content", source="content")

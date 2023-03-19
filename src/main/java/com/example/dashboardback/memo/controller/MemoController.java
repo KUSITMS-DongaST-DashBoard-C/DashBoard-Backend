@@ -5,7 +5,7 @@ import com.example.dashboardback.memo.constant.MemoConstants.EBoardResponseMessa
 import com.example.dashboardback.memo.constant.MemoConstants.EMemoController;
 import com.example.dashboardback.memo.dto.MemoDto.*;
 import com.example.dashboardback.memo.service.MemoService;
-import com.example.dashboardback.user.dto.PaginationDto;
+import com.example.dashboardback.admin.dto.PaginationDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

@@ -12,7 +12,7 @@ public interface CommentMapper {
 
     @Mapping(target = "content", source = "content")
     @Mapping(target = "memo", source = "memoId", qualifiedByName = "getMemo")
-    @Mapping(target = "user", expression = "java(SecurityUtils.getLoggedInUser())")
+    @Mapping(target = "admin", expression = "java(SecurityUtils.getLoggedInUser())")
     Comment toEntity(CreateRequest createRequest);
 
     @Mapping(target = "commentId", source = "commentId")

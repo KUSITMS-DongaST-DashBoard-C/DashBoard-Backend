@@ -1,4 +1,4 @@
-package com.example.dashboardback.user.dto;
+package com.example.dashboardback.admin.dto;
 
 import lombok.Builder;
 import lombok.Getter;

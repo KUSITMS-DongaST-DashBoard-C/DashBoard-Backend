@@ -1,7 +1,7 @@
 package com.example.dashboardback.image.entity;
 
 import com.example.dashboardback.global.entity.BaseTimeEntity;
-import com.example.dashboardback.user.entity.User;
+import com.example.dashboardback.admin.entity.Admin;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class Image extends BaseTimeEntity implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Admin admin;
 
     private boolean isDeleted;
 
