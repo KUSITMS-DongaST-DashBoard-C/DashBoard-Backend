@@ -1,7 +1,7 @@
 package com.example.dashboardback.user.entity;
 
-import com.example.dashboardback.admin.constant.AdminConstants;
 import com.example.dashboardback.global.entity.BaseTimeEntity;
+import com.example.dashboardback.loginhistory.entity.LoginHistory;
 import com.example.dashboardback.user.constant.UserConstants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,6 +22,7 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
     private Long userId;
 
     @Column
@@ -52,6 +55,9 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private UserConstants.Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<LoginHistory> loginHistories = new ArrayList<>();
+
     public static User createUser(){
         return User.builder()
                 .email("skytea@gmail.com")
@@ -68,4 +74,5 @@ public class User extends BaseTimeEntity {
                 .role(UserConstants.Role.valueOf("ROLE_USER"))
                 .build();
     }
+
 }

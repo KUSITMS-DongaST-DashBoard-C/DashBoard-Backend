@@ -4,9 +4,12 @@ package com.example.dashboardback.chart.controller;
 import com.example.dashboardback.admin.constant.AdminConstants;
 import com.example.dashboardback.admin.dto.AdminDto;
 import com.example.dashboardback.chart.constant.ChartConstants;
+import com.example.dashboardback.chart.constant.ChartConstants.EChartResponseMessage;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
+import com.example.dashboardback.chart.dto.au.DauDto;
 import com.example.dashboardback.chart.service.ChartService;
 import com.example.dashboardback.global.dto.ResponseDto;
+import com.example.dashboardback.loginhistory.service.LoginHistoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +38,14 @@ public class ChartController {
     public ResponseEntity<List<GetMajorNumRes>> getMajorNum(){
         return new ResponseEntity<>(this.chartService.getMajorNum(), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "DAU 데이터 조회", notes = "DAU 데이터를 조회합니다.")
+    @GetMapping("/dau")
+    public ResponseEntity<ResponseDto<List<DauDto>>> getDAU(){
+        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETMAJOIRNUM_SUCCESS.getMessage(),
+                this.chartService.getDAU()));
+    }
+
 
 
 }
