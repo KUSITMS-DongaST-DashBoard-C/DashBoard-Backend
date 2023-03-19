@@ -1,4 +1,4 @@
-package com.example.dashboardback.user.dto;
+package com.example.dashboardback.admin.dto;
 
 import com.example.dashboardback.image.entity.Image;
 import com.example.dashboardback.image.service.ImageService;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @Component
-public class UserMapperSupport {
+public class AdminMapperSupport {
     private final ImageService imageService;
 
     @Named("saveImage")

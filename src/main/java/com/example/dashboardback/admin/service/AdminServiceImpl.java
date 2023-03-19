@@ -1,17 +1,17 @@
-package com.example.dashboardback.user.service;
+package com.example.dashboardback.admin.service;
 
+import com.example.dashboardback.admin.dto.AdminMapper;
+import com.example.dashboardback.admin.entity.Admin;
 import com.example.dashboardback.global.config.security.jwt.JwtTokenProvider;
 import com.example.dashboardback.global.dto.TokenInfoResponse;
-import com.example.dashboardback.user.constant.UserConstants;
-import com.example.dashboardback.user.constant.UserConstants.EToken;
-import com.example.dashboardback.user.dto.UserDto;
-import com.example.dashboardback.user.dto.UserDto.LoginRequest;
-import com.example.dashboardback.user.dto.UserDto.LoginResponse;
-import com.example.dashboardback.user.dto.UserMapper;
-import com.example.dashboardback.user.entity.User;
-import com.example.dashboardback.user.exception.NotFoundEmailException;
-import com.example.dashboardback.user.exception.OverlapUserException;
-import com.example.dashboardback.user.repository.UserRepository;
+import com.example.dashboardback.admin.constant.AdminConstants;
+import com.example.dashboardback.admin.constant.AdminConstants.EToken;
+import com.example.dashboardback.admin.dto.AdminDto;
+import com.example.dashboardback.admin.dto.AdminDto.LoginRequest;
+import com.example.dashboardback.admin.dto.AdminDto.LoginResponse;
+import com.example.dashboardback.admin.exception.NotFoundEmailException;
+import com.example.dashboardback.admin.exception.OverlapAdminException;
+import com.example.dashboardback.admin.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,38 +22,36 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService{
+public class AdminServiceImpl implements AdminService {
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final AdminRepository adminRepository;
+    private final AdminMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider tokenProvider;
     private final RedisTemplate redisTemplate;
 
     @Override
-    public void singup(UserDto.SignupRequest signupRequest) {
+    public void singup(AdminDto.SignupRequest signupRequest) {
         this.validateOverlap(signupRequest.getEmail());
-        User user = userMapper.toEntity(signupRequest);
-        user.encryptPassword(passwordEncoder);
-        user.setRole(UserConstants.Role.ROLE_ADMIN);
-        this.userRepository.save(user);
+        Admin admin = userMapper.toEntity(signupRequest);
+        admin.encryptPassword(passwordEncoder);
+        admin.setRole(AdminConstants.Role.ROLE_ADMIN);
+        this.adminRepository.save(admin);
     }
 
     private void validateOverlap(String email) {
-        userRepository.findByEmail(email)
+        adminRepository.findByEmail(email)
                 .ifPresent((m -> {
-                    throw new OverlapUserException();
+                    throw new OverlapAdminException();
                 }));
     }
     @Override
@@ -77,28 +75,28 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto.UserInfoResponse getUserInfo(){
+    public AdminDto.UserInfoResponse getUserInfo(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByEmail(email).orElseThrow();
-        List<UserDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
+        Admin admin = adminRepository.findByEmail(email).orElseThrow();
+        List<AdminDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
         getActiveUser(email, activeUserResponseList);
-        return UserDto.UserInfoResponse.from(user.getName(), email, user.getUserImage().getImageUrl(), activeUserResponseList);
+        return AdminDto.UserInfoResponse.from(admin.getName(), email, admin.getUserImage().getImageUrl(), activeUserResponseList);
     }
 
-    public void getActiveUser(String email, List<UserDto.ActiveUserResponse> activeUserResponseList){
+    public void getActiveUser(String email, List<AdminDto.ActiveUserResponse> activeUserResponseList){
 
         Set<String> redisSessionKeys = redisTemplate.keys("RT:*");
 
         for (String redisSessionKey : redisSessionKeys) {
             String redisSessionValue = (String)redisTemplate.opsForValue().get(redisSessionKey);
-            User user = validateEmail(redisSessionValue);
-            if (user.getEmail().equals(email)) {
+            Admin admin = validateEmail(redisSessionValue);
+            if (admin.getEmail().equals(email)) {
                 continue;
             }
-            UserDto.ActiveUserResponse dto = UserDto.ActiveUserResponse.builder()
-                    .name(user.getName())
-                    .email(user.getEmail())
-                    .imgUrl(user.getUserImage().getImageUrl())
+            AdminDto.ActiveUserResponse dto = AdminDto.ActiveUserResponse.builder()
+                    .name(admin.getName())
+                    .email(admin.getEmail())
+                    .imgUrl(admin.getUserImage().getImageUrl())
                     .build();
                     
             activeUserResponseList.add(dto);
@@ -121,8 +119,8 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User validateEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(NotFoundEmailException::new);
+    public Admin validateEmail(String email) {
+        return this.adminRepository.findByEmail(email).orElseThrow(NotFoundEmailException::new);
     }
 
 }

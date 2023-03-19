@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class CommentDto {
 
@@ -73,7 +71,7 @@ public abstract class CommentDto {
 
             return comment.isDeleted() == true ?
                     new GetResponse(comment.getCommentId(), "삭제된 댓글입니다.", null, null, null,null) :
-                    new GetResponse(comment.getCommentId(), comment.getContent(), comment.getUser().getUserId(), comment.getUser().getName(), comment.getUser().getUserImage().getImageUrl(), comment.getCreatedAt());
+                    new GetResponse(comment.getCommentId(), comment.getContent(), comment.getAdmin().getUserId(), comment.getAdmin().getName(), comment.getAdmin().getUserImage().getImageUrl(), comment.getCreatedAt());
         }
     }
 

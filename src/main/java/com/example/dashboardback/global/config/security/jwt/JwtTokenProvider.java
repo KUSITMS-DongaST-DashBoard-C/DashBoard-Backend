@@ -1,9 +1,9 @@
 package com.example.dashboardback.global.config.security.jwt;
 
 import com.example.dashboardback.global.dto.TokenInfoResponse;
-import com.example.dashboardback.user.entity.User;
-import com.example.dashboardback.user.exception.NotFoundEmailException;
-import com.example.dashboardback.user.repository.UserRepository;
+import com.example.dashboardback.admin.entity.Admin;
+import com.example.dashboardback.admin.exception.NotFoundEmailException;
+import com.example.dashboardback.admin.repository.AdminRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -38,7 +38,7 @@ public class JwtTokenProvider implements InitializingBean {
     @Value("${jwt.refresh-token-validity-in-seconds}")
     private long refreshTokenValidityTime;
 
-    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
     private Key key;
 
@@ -88,8 +88,8 @@ public class JwtTokenProvider implements InitializingBean {
                         .collect(Collectors.toList());
 
         //User user = new User(claims.getSubject(), "", authorities);
-        User user = this.userRepository.findByEmail(claims.getSubject()).orElseThrow(NotFoundEmailException::new);
-        return new UsernamePasswordAuthenticationToken(new UserDetailsImpl(user), accessToken, authorities);
+        Admin admin = this.adminRepository.findByEmail(claims.getSubject()).orElseThrow(NotFoundEmailException::new);
+        return new UsernamePasswordAuthenticationToken(new UserDetailsImpl(admin), accessToken, authorities);
     }
 
     public boolean validateToken(String token) {

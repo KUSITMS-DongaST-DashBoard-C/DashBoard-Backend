@@ -1,10 +1,10 @@
-package com.example.dashboardback.user.constant;
+package com.example.dashboardback.admin.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-public class UserConstants {
+public class AdminConstants {
     @Getter
     @RequiredArgsConstructor
     public enum EBoardResponseMessage{
