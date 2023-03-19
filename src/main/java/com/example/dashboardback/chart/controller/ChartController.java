@@ -42,7 +42,7 @@ public class ChartController {
     @ApiOperation(value = "DAU 데이터 조회", notes = "DAU 데이터를 조회합니다.")
     @GetMapping("/dau")
     public ResponseEntity<ResponseDto<List<DauDto>>> getDAU(){
-        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETMAJOIRNUM_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETDAU_SUCCESS.getMessage(),
                 this.chartService.getDAU()));
     }
 
