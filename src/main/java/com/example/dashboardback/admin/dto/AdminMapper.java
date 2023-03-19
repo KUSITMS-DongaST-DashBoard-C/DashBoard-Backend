@@ -10,6 +10,6 @@ public interface AdminMapper {
     @Mapping(target = "password", source = "password")
     @Mapping(target="name", source="name")
     @Mapping(target="phoneNumber", source="phoneNumber")
-    @Mapping(target = "userImage", source = "file", qualifiedByName = "saveImage")
+    @Mapping(target = "adminImage", source = "file", qualifiedByName = "saveImage")
     Admin toEntity(AdminDto.SignupRequest signupRequest);
 }

@@ -39,7 +39,7 @@ public class MemoDto {
         private String content;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
-        private String userName;
+        private String adminName;
         private String imageUrl;
     }
 
@@ -75,19 +75,19 @@ public class MemoDto {
         private String content;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
-        private String userName;
+        private String adminName;
         private String imageUrl;
-        private String userEmail;
+        private String adminEmail;
         private List<GetResponse> comments=new ArrayList<>();
 
         @QueryProjection
-        public GetAllResponse(Long memoId, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String userName, String userEmail, String imageUrl){
+        public GetAllResponse(Long memoId, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String adminName, String adminEmail, String imageUrl){
             this.memoId=memoId;
             this.content=content;
             this.createdAt=createdAt;
             this.updatedAt=updatedAt;
-            this.userName=userName;
-            this.userEmail=userEmail;
+            this.adminName=adminName;
+            this.adminEmail=adminEmail;
             this.imageUrl=imageUrl;
         }
     }

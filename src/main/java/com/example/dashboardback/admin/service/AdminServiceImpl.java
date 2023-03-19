@@ -80,7 +80,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = adminRepository.findByEmail(email).orElseThrow();
         List<AdminDto.ActiveUserResponse> activeUserResponseList = new ArrayList<>();
         getActiveUser(email, activeUserResponseList);
-        return AdminDto.UserInfoResponse.from(admin.getName(), email, admin.getUserImage().getImageUrl(), activeUserResponseList);
+        return AdminDto.UserInfoResponse.from(admin.getName(), email, admin.getAdminImage().getImageUrl(), activeUserResponseList);
     }
 
     public void getActiveUser(String email, List<AdminDto.ActiveUserResponse> activeUserResponseList){
@@ -96,7 +96,7 @@ public class AdminServiceImpl implements AdminService {
             AdminDto.ActiveUserResponse dto = AdminDto.ActiveUserResponse.builder()
                     .name(admin.getName())
                     .email(admin.getEmail())
-                    .imgUrl(admin.getUserImage().getImageUrl())
+                    .imgUrl(admin.getAdminImage().getImageUrl())
                     .build();
                     
             activeUserResponseList.add(dto);

@@ -20,7 +20,7 @@ import java.util.List;
 public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long adminId;
 
     @Column
     private String password;
@@ -41,7 +41,7 @@ public class Admin implements Serializable {
     private Role role;
 
     @OneToOne(mappedBy = "admin")
-    private Image userImage;
+    private Image adminImage;
 
     @OneToMany(mappedBy="admin")
     private List<Memo> memos=new ArrayList<>();
@@ -58,7 +58,7 @@ public class Admin implements Serializable {
      */
 
     public void setUserImage(Image image) {
-        this.userImage = image;
+        this.adminImage = image;
         image.setAdmin(this);
     }
 

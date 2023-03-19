@@ -53,17 +53,17 @@ public abstract class CommentDto {
     public static class  GetResponse {
         private Long commentId;
         private String content;
-        private Long userId;
-        private String userName;
-        private String userImageUrl;
+        private Long adminId;
+        private String adminName;
+        private String adminImageUrl;
         private LocalDateTime createdAt;
 
-        public GetResponse(Long commentId, String content, Long userId, String userName, String userImageUrl, LocalDateTime createdAt) {
+        public GetResponse(Long commentId, String content, Long adminId, String adminName, String adminImageUrl, LocalDateTime createdAt) {
             this.commentId = commentId;
             this.content = content;
-            this.userId = userId;
-            this.userName = userName;
-            this.userImageUrl=userImageUrl;
+            this.adminId = adminId;
+            this.adminName = adminName;
+            this.adminImageUrl=adminImageUrl;
             this.createdAt = createdAt;
         }
 
@@ -71,7 +71,7 @@ public abstract class CommentDto {
 
             return comment.isDeleted() == true ?
                     new GetResponse(comment.getCommentId(), "삭제된 댓글입니다.", null, null, null,null) :
-                    new GetResponse(comment.getCommentId(), comment.getContent(), comment.getAdmin().getUserId(), comment.getAdmin().getName(), comment.getAdmin().getUserImage().getImageUrl(), comment.getCreatedAt());
+                    new GetResponse(comment.getCommentId(), comment.getContent(), comment.getAdmin().getAdminId(), comment.getAdmin().getName(), comment.getAdmin().getAdminImage().getImageUrl(), comment.getCreatedAt());
         }
     }
 
