@@ -24,4 +24,10 @@ public class UserController {
     public void makeUser() {
         userService.makeUserData();
     }
+
+    @ApiOperation(value = "유저더미데이터 생성일, 방문일 수정", notes = "유저더미데이터 생성일, 방문일 수정")
+    @GetMapping("/dummy/update")
+    public void updateUser() {
+        userService.updateCreatedAtWithRandomDate(200, 7);
+    }
 }
