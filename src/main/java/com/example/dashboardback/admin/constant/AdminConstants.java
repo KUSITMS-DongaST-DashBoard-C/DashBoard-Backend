@@ -12,7 +12,7 @@ public class AdminConstants {
         LOGIN_SUCCESS("로그인에 성공했습니다"),
 
         LOGOUT_SUCCESS("로그아웃에 성공했습니다."),
-        GETUSERINFO_SUCCESS("GET USER INFO");
+        GETUSERINFO_SUCCESS("GET ADMIN INFO");
         private final String message;
     }
     @Getter

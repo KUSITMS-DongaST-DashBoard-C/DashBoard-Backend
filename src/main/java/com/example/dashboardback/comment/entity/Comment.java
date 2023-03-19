@@ -27,7 +27,7 @@ public class Comment extends BaseTimeEntity {
     private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "admin_id")
     private Admin admin;
 
     @ManyToOne(fetch = FetchType.LAZY)

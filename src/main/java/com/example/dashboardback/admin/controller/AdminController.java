@@ -1,4 +1,4 @@
-package com.example.dashboardback.admin.constant.controller;
+package com.example.dashboardback.admin.controller;
 
 import com.example.dashboardback.admin.constant.AdminConstants;
 import com.example.dashboardback.admin.dto.AdminDto;

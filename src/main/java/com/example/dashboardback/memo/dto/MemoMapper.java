@@ -19,7 +19,7 @@ public interface MemoMapper {
     @Mapping(target = "createdAt", source = "createdAt")
     @Mapping(target = "updatedAt", source = "updatedAt")
     @Mapping(target="memoId", source="memoId")
-    @Mapping(target="userName", expression = "java(SecurityUtils.getLoggedInUser().getName())")
+    @Mapping(target="adminName", expression = "java(SecurityUtils.getLoggedInUser().getName())")
     CreateResponse toCreateResponse(Memo memo);
 
     @Mapping(target="memoId", source="memoId")

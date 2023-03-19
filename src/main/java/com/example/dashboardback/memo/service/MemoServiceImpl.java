@@ -36,7 +36,7 @@ public class MemoServiceImpl implements MemoService{
 
 
         CreateResponse createResponse=this.memoMapper.toCreateResponse(memo);
-        createResponse.setImageUrl(imageRepository.findByUserId(SecurityUtils.getLoggedInUser().getUserId()));
+        createResponse.setImageUrl(imageRepository.findByUserId(SecurityUtils.getLoggedInUser().getAdminId()));
         return createResponse;
     }
 
@@ -71,6 +71,6 @@ public class MemoServiceImpl implements MemoService{
     }
 
     public void validateCreatedUser(Memo memo){
-        if(!(memo.getAdmin().getUserId().equals(SecurityUtils.getLoggedInUser().getUserId()))) throw new NotMemoWriterException();
+        if(!(memo.getAdmin().getAdminId().equals(SecurityUtils.getLoggedInUser().getAdminId()))) throw new NotMemoWriterException();
     }
 }

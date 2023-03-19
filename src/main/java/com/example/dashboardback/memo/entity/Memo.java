@@ -28,7 +28,7 @@ public class Memo extends BaseTimeEntity {
     private boolean isDeleted;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="admin_id")
     private Admin admin;
 
     @OneToMany(mappedBy="memo")

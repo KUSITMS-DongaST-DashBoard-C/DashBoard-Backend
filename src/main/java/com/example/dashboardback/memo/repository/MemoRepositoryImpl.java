@@ -18,7 +18,7 @@ import java.util.*;
 import static com.example.dashboardback.comment.dto.CommentDto.GetResponse.convertCommentToDto;
 import static com.example.dashboardback.image.entity.QImage.image;
 import static com.example.dashboardback.memo.entity.QMemo.memo;
-import static com.example.dashboardback.admin.entity.QUser.user;
+import static com.example.dashboardback.admin.entity.QAdmin.admin;
 
 public class MemoRepositoryImpl implements MemoRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
@@ -44,12 +44,12 @@ public class MemoRepositoryImpl implements MemoRepositoryCustom{
                         memo.content,
                         memo.createdAt,
                         memo.updatedAt,
-                        user.name,
-                        user.email,
+                        admin.name,
+                        admin.email,
                         image.imageUrl))
-                .from(memo, user)
-                .leftJoin(memo.user, user)
-                .leftJoin(user.userImage, image)
+                .from(memo, admin)
+                .leftJoin(memo.admin, admin)
+                .leftJoin(admin.adminImage, image)
                 .where(memo.isDeleted.eq(false))
                 .orderBy(memo.createdAt.desc())
                 .groupBy(memo.memoId)
@@ -66,12 +66,12 @@ public class MemoRepositoryImpl implements MemoRepositoryCustom{
                         memo.content,
                         memo.createdAt,
                         memo.updatedAt,
-                        user.name,
-                        user.email,
+                        admin.name,
+                        admin.email,
                         image.imageUrl))
-                .from(memo, user)
-                .leftJoin(memo.user, user)
-                .leftJoin(user.userImage, image)
+                .from(memo, admin)
+                .leftJoin(memo.admin, admin)
+                .leftJoin(admin.adminImage, image)
                 .where(memo.isDeleted.eq(false))
                 .orderBy(memo.createdAt.desc())
                 .groupBy(memo.memoId);

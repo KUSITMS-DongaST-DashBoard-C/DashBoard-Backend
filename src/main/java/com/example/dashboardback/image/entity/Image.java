@@ -22,7 +22,7 @@ public class Image extends BaseTimeEntity implements Serializable {
     private String imageUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "admin_id")
     private Admin admin;
 
     private boolean isDeleted;
