@@ -41,8 +41,8 @@ public class ChartServiceImpl implements ChartService {
         for(int i=0;i<7;i++){
             DauDto dauDto=new DauDto();
             dauDto.setDaysBefore(i);
-            dauDto.setDau(loginHistoryRepository.getDauByDay(i, i+1));
-            dauDto.setSignupNum(userRepository.getSignUpNumByDay(i, i+1));
+            dauDto.setDau(loginHistoryRepository.getDauByDay(i));
+            dauDto.setSignupNum(userRepository.getSignUpNumByDay(i));
             dauDtos.add(dauDto);
         }
         return dauDtos;
