@@ -4,7 +4,8 @@ package com.example.dashboardback.chart.controller;
 import com.example.dashboardback.chart.constant.ChartConstants;
 import com.example.dashboardback.chart.constant.ChartConstants.EChartResponseMessage;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
-import com.example.dashboardback.chart.dto.au.DauDto;
+import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
+import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
 import com.example.dashboardback.chart.service.ChartService;
 import com.example.dashboardback.global.dto.ResponseDto;
 import io.swagger.annotations.Api;
@@ -41,9 +42,16 @@ public class ChartController {
 
     @ApiOperation(value = "DAU 데이터 조회", notes = "DAU 데이터를 조회합니다.")
     @GetMapping("/dau")
-    public ResponseEntity<ResponseDto<List<DauDto>>> getDAU(){
+    public ResponseEntity<ResponseDto<List<DauInfoResponse>>> getDAU(){
         return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETDAU_SUCCESS.getMessage(),
                 this.chartService.getDAU()));
+    }
+
+    @ApiOperation(value = "MAU 데이터 조회", notes = "MAU 데이터를 조회합니다.")
+    @GetMapping("/mau")
+    public ResponseEntity<ResponseDto<List<MauInfoResponse>>> getMAU(){
+        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETMAU_SUCCESS.getMessage(),
+                this.chartService.getMAU()));
     }
 
 }
