@@ -8,7 +8,7 @@ public class ChartConstants {
     @Getter
     @RequiredArgsConstructor
     public enum EBoardResponseMessage{
-        GETMAJOIRNUM_SUCCESS("GET MAJOIRNUM SUCCESS");
+        GETDATA_SUCCESS("데이터 응답 성공");
         private final String message;
     }
 

@@ -2,6 +2,8 @@ package com.example.dashboardback.chart.service;
 
 
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityNewMemberRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
 import com.example.dashboardback.chart.repository.ChartRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,4 +24,13 @@ public class ChartServiceImpl implements ChartService {
     public List<GetMajorNumRes> getMajorNum() {
        return chartRepository.getMajorNum();
     }
+
+    @Override
+    public List<GetCityTrafficRes> getCityData() {
+//        GetCityTrafficRes.builder()
+//                .getCityNewMemberResList(chartRepository.getNewMemCnt())
+//                .build();
+        return null;
+    }
+
 }
