@@ -3,6 +3,8 @@ package com.example.dashboardback.chart.service;
 
 import com.example.dashboardback.chart.constant.ChartConstants;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityNewMemberRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
 import com.example.dashboardback.chart.dto.au.DauDto;
 import com.example.dashboardback.chart.repository.ChartRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
@@ -34,7 +36,13 @@ public class ChartServiceImpl implements ChartService {
        return chartRepository.getMajorNum();
     }
 
-    @Override
+//    @Override
+//    public List<GetCityTrafficRes> getCityData() {
+////        GetCityTrafficRes.builder()
+////                .getCityNewMemberResList(chartRepository.getNewMemCnt())
+////                .build();
+//        return null;
+//    }
     public List<DauDto> getDAU() {
         List<DauDto> dauDtos=new ArrayList<>();
         LocalDateTime now = LocalDateTime.of(2023,3,28,00,00);
@@ -47,4 +55,5 @@ public class ChartServiceImpl implements ChartService {
         }
         return dauDtos;
     }
+
 }
