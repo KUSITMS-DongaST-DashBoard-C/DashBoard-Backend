@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -25,9 +26,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         LocalDate targetDate = LocalDate.parse("2023-03-28", DateTimeFormatter.ISO_LOCAL_DATE).minusDays(day);
         Date sqlTargetDate = Date.valueOf(targetDate);
 
-
         return queryFactory.selectFrom(user)
                 .where(Expressions.dateTemplate(Date.class, "DATE({0})", user.createdAt).eq(sqlTargetDate))
+                .fetchCount();
+    }
+
+    @Override
+    public long getSignUpNumByMonth(int year, int month) {
+        YearMonth yearMonth = YearMonth.of(year, month);
+        LocalDate monthStart = yearMonth.atDay(1);
+        LocalDate monthEnd = yearMonth.atEndOfMonth();
+
+        return queryFactory.selectFrom(user)
+                .where(user.createdAt.between(monthStart.atStartOfDay(), monthEnd.atTime(23, 59, 59)))
                 .fetchCount();
     }
 }

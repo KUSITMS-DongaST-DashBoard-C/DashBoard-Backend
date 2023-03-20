@@ -1,22 +1,21 @@
 package com.example.dashboardback.chart.service;
 
 
-import com.example.dashboardback.chart.constant.ChartConstants;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
-import com.example.dashboardback.chart.dto.au.DauDto;
+import com.example.dashboardback.chart.dto.au.AuDto;
+import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
+import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
 import com.example.dashboardback.chart.repository.ChartRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
-import com.example.dashboardback.user.entity.User;
 import com.example.dashboardback.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -31,20 +30,38 @@ public class ChartServiceImpl implements ChartService {
 
     @Override
     public List<GetMajorNumRes> getMajorNum() {
-       return chartRepository.getMajorNum();
+        return chartRepository.getMajorNum();
     }
 
     @Override
-    public List<DauDto> getDAU() {
-        List<DauDto> dauDtos=new ArrayList<>();
-        LocalDateTime now = LocalDateTime.of(2023,3,28,00,00);
-        for(int i=0;i<7;i++){
-            DauDto dauDto=new DauDto();
-            dauDto.setDaysBefore(i);
-            dauDto.setDau(loginHistoryRepository.getDauByDay(i));
-            dauDto.setSignupNum(userRepository.getSignUpNumByDay(i));
-            dauDtos.add(dauDto);
+    public List<DauInfoResponse> getDAU() {
+        List<DauInfoResponse> dauDtos = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            dauDtos.add(DauInfoResponse.from(i,
+                    loginHistoryRepository.getDauByDay(i),
+                    userRepository.getSignUpNumByDay(i)));
         }
         return dauDtos;
+    }
+
+    @Override
+    public List<MauInfoResponse> getMAU() {
+        List<MauInfoResponse> mauDtos = new ArrayList<>();
+        LocalDate now = LocalDate.of(2023, 3, 28);
+        for (int i = 0; i < 7; i++) {
+            mauDtos.add(MauInfoResponse.from(i,
+                    loginHistoryRepository.getMauByMonth(
+                            now.minusMonths(i).getYear(),
+                            now.minusMonths(i).getMonthValue()),
+                    userRepository.getSignUpNumByMonth(
+                            now.minusMonths(i).getYear(),
+                            now.minusMonths(i).getMonthValue())));
+        }
+        return mauDtos;
+    }
+
+    @Override
+    public List<AuDto.WauInfoResponse> getWAU() {
+        return null;
     }
 }

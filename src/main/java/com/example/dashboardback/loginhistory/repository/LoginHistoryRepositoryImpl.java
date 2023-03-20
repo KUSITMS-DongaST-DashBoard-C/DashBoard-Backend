@@ -1,17 +1,13 @@
 package com.example.dashboardback.loginhistory.repository;
 
-import com.example.dashboardback.loginhistory.entity.QLoginHistory;
-import com.example.dashboardback.user.entity.QUser;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
-
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import static com.example.dashboardback.loginhistory.entity.QLoginHistory.loginHistory;
 import static com.example.dashboardback.user.entity.QUser.user;
@@ -35,4 +31,21 @@ public class LoginHistoryRepositoryImpl implements LoginHistoryCustom{
                         .and(Expressions.dateTemplate(Date.class, "DATE({0})", loginHistory.loginTime).eq(sqlTargetDate)))
                 .fetchCount();
     }
+
+    @Override
+    public long getMauByMonth(int year, int month) {
+        YearMonth yearMonth = YearMonth.of(year, month);
+        LocalDate monthStart = yearMonth.atDay(1);
+        LocalDate monthEnd = yearMonth.atEndOfMonth();
+
+        return queryFactory.select(user.userId)
+                .distinct()
+                .from(user, loginHistory)
+                .join(loginHistory.user, user)
+                .where(loginHistory.loginTime.between(monthStart.atStartOfDay(), monthEnd.atTime(23, 59, 59)))
+                .fetchCount();
+
+    }
+
+
 }
