@@ -2,12 +2,9 @@ package com.example.dashboardback.chart.service;
 
 
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
-
-import com.example.dashboardback.chart.dto.Res.city.GetCityNewMemberRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityRatioRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
-import com.example.dashboardback.chart.dto.au.DauDto;
 import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
@@ -19,12 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Tuple;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,15 +60,7 @@ public class ChartServiceImpl implements ChartService {
                 .build();
     }
 
-    public List<DauDto> getDAU() {
-        List<DauDto> dauDtos=new ArrayList<>();
-        LocalDateTime now = LocalDateTime.of(2023,3,28,00,00);
-        for(int i=0;i<7;i++){
-            DauDto dauDto=new DauDto();
-            dauDto.setDaysBefore(i);
-            dauDto.setDau(loginHistoryRepository.getDauByDay(i));
-            dauDto.setSignupNum(userRepository.getSignUpNumByDay(i));
-            dauDtos.add(dauDto);
+    @Override
     public List<DauInfoResponse> getDAU() {
         List<DauInfoResponse> dauDtos = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
@@ -87,7 +70,6 @@ public class ChartServiceImpl implements ChartService {
         }
         return dauDtos;
     }
-
 
     @Override
     public List<MauInfoResponse> getMAU() {
