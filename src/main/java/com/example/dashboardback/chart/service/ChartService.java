@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ChartService {
     List<GetMajorNumRes> getMajorNum();
+    GetCityTrafficRes getCityData();
+    List<DauDto> getDAU();
     List<DauInfoResponse> getDAU();
     List<MauInfoResponse> getMAU();
     List<WauInfoResponse> getWAU();
