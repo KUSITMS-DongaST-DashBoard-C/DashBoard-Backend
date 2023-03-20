@@ -1,6 +1,7 @@
 package com.example.dashboardback.chart.service;
 
 
+import com.example.dashboardback.chart.dto.Res.GetDailyData;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityRatioRes;
@@ -17,9 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -49,7 +53,7 @@ public class ChartServiceImpl implements ChartService {
 
             GetCityRatioRes getCityRatioRes = GetCityRatioRes.builder()
                     .city(getCityNum.getCity())
-                    .ratio((long) ((getCityNum.getNum()*100.0/userNum)))
+                    .ratio(((getCityNum.getNum()*100L/userNum)))
                     .build();
 
             getCityRatioResList.add(getCityRatioRes);
@@ -99,5 +103,51 @@ public class ChartServiceImpl implements ChartService {
                     userRepository.getSignUpNumByWeek(now.minusWeeks(i))));
         }
         return wauDtos;
+    }
+
+    @Override
+    public String getYDA() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 포맷
+
+        Calendar c1 = Calendar.getInstance();
+        c1.add(Calendar.DATE, -1);
+
+        String strYDA = sdf.format(c1.getTime());
+        return strYDA;
+    }
+
+    @Override
+    public String getTDA() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+
+        String strToday = sdf.format(c1.getTime());
+
+        return strToday;
+    }
+
+
+    @Override
+    public GetDailyData.GetDailyDataRes getDailyData() {
+        String yda = getYDA();
+        String tda = getTDA();
+        //(1)
+        Long visitorCnt = chartRepository.getVisitorCnt(tda);
+        Long YDAvisitorCnt = chartRepository.getVisitorCnt(yda);
+        GetDailyData.VisitorData visitorData = GetDailyData.VisitorData.from(visitorCnt,((visitorCnt-YDAvisitorCnt)*100)/YDAvisitorCnt);
+        //(2)
+        GetDailyData.PageViewData pageViewData = GetDailyData.PageViewData.from(1536L,8L);
+        //(3)
+        Long newMemberCnt = chartRepository.getNewMemberCnt(tda);
+        Long YDANewMemberCnt = chartRepository.getNewMemberCnt(yda);
+        GetDailyData.NewMemberData newMemberData = GetDailyData.NewMemberData.from(newMemberCnt,((newMemberCnt-YDANewMemberCnt)*100)/YDANewMemberCnt);
+        //(4)
+        Long bounceCnt = chartRepository.getBounceCnt();
+        Long totalUser = chartRepository.getUserNum();
+        Long YDABounceCnt = chartRepository.getYDABounceCnt();
+        GetDailyData.BounceRateData bounceRateData = GetDailyData.BounceRateData.from(bounceCnt*100L/totalUser,((bounceCnt-YDABounceCnt)*100)/YDABounceCnt);
+
+        return GetDailyData.GetDailyDataRes.from(visitorData,pageViewData,newMemberData,bounceRateData);
+
     }
 }

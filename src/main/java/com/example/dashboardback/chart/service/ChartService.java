@@ -1,5 +1,6 @@
 package com.example.dashboardback.chart.service;
 
+import com.example.dashboardback.chart.dto.Res.GetDailyData;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
@@ -14,4 +15,8 @@ public interface ChartService {
     List<DauInfoResponse> getDAU();
     List<MauInfoResponse> getMAU();
     List<WauInfoResponse> getWAU();
+
+    String getYDA();
+    String getTDA();
+    GetDailyData.GetDailyDataRes getDailyData();
 }

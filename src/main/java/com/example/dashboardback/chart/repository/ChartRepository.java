@@ -43,4 +43,25 @@ public interface ChartRepository extends JpaRepository<User, Long > {
     @Query("select count(u)" +
             "from User u")
     public Long getUserNum();
+
+    @Query("select count(u)" +
+            "from User u " +
+            "WHERE function('date_format', u.createdAt, '%Y-%m-%d') = :date")
+    public Long getNewMemberCnt(String date);
+
+
+    @Query("select distinct count(h) " +
+            "from LoginHistory h " +
+            "where function('date_format', h.loginTime, '%Y-%m-%d') = :date")
+    public Long getVisitorCnt(String date);
+
+    @Query(value="select count(*)\n" +
+            "from user\n" +
+            "where login_time < date_add(now(), interval-1 year)", nativeQuery = true)
+    public Long getBounceCnt();
+
+    @Query(value="select count(*)\n" +
+            "from user\n" +
+            "where login_time < date_add(now()- interval 1 day, interval-1 year)", nativeQuery = true)
+    public Long getYDABounceCnt();
 }
