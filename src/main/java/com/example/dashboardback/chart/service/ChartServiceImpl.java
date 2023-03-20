@@ -69,7 +69,7 @@ public class ChartServiceImpl implements ChartService {
                 .build();
     }
 
-    public List<DauDto> getDAU() {
+    public List<Au> getDAU() {
         List<DauDto> dauDtos=new ArrayList<>();
         LocalDateTime now = LocalDateTime.of(2023,3,28,00,00);
         for(int i=0;i<7;i++){
