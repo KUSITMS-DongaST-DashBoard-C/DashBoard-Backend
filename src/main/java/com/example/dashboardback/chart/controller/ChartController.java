@@ -1,12 +1,13 @@
 package com.example.dashboardback.chart.controller;
 
 
-import com.example.dashboardback.chart.constant.ChartConstants;
 import com.example.dashboardback.chart.constant.ChartConstants.EChartResponseMessage;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
+import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
+import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
 import com.example.dashboardback.chart.service.ChartService;
 import com.example.dashboardback.global.dto.ResponseDto;
 import io.swagger.annotations.Api;
@@ -53,6 +54,13 @@ public class ChartController {
     public ResponseEntity<ResponseDto<List<MauInfoResponse>>> getMAU(){
         return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETMAU_SUCCESS.getMessage(),
                 this.chartService.getMAU()));
+    }
+
+    @ApiOperation(value = "WAU 데이터 조회", notes = "WAU 데이터를 조회합니다.")
+    @GetMapping("/wau")
+    public ResponseEntity<ResponseDto<List<WauInfoResponse>>> getWAU(){
+        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETWAU_SUCCESS.getMessage(),
+                this.chartService.getWAU()));
     }
 
 }

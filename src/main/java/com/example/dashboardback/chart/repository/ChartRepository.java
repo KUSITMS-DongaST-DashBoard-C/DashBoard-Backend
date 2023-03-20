@@ -27,8 +27,6 @@ public interface ChartRepository extends JpaRepository<User, Long > {
     public List<GetCityNumRes> getCityNum();
 
 
-
-
     @Query("select " +
             "new com.example.dashboardback.chart.dto.Res.city.GetCityNewMemberRes(u.address.city, count(u.address.city))" +
             "from User u where (function('date_format', u.createdAt,'%Y-%m-%d')=current_date) " +
