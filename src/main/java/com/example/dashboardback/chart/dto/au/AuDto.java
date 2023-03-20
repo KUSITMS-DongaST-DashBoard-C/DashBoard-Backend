@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-public class AuDto {
+public abstract class AuDto {
     @Getter
     @AllArgsConstructor
     @Builder
