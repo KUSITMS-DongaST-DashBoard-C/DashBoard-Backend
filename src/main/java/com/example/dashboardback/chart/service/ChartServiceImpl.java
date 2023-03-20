@@ -5,6 +5,9 @@ import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
 import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
+import com.example.dashboardback.chart.dto.Res.city.GetCityNewMemberRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
+import com.example.dashboardback.chart.dto.au.DauDto;
 import com.example.dashboardback.chart.repository.ChartRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
 import com.example.dashboardback.user.repository.UserRepository;
@@ -40,9 +43,14 @@ public class ChartServiceImpl implements ChartService {
             dauDtos.add(DauInfoResponse.from(i,
                     loginHistoryRepository.getDauByDay(i),
                     userRepository.getSignUpNumByDay(i)));
-        }
-        return dauDtos;
-    }
+//    @Override
+//    public List<GetCityTrafficRes> getCityData() {
+////        GetCityTrafficRes.builder()
+////                .getCityNewMemberResList(chartRepository.getNewMemCnt())
+////                .build();
+//        return null;
+//    }
+
 
     @Override
     public List<MauInfoResponse> getMAU() {

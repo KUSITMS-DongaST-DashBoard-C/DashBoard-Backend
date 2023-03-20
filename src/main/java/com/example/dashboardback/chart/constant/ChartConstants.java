@@ -8,9 +8,9 @@ public class ChartConstants {
     @Getter
     @RequiredArgsConstructor
     public enum EChartResponseMessage{
-        GETMAJOIRNUM_SUCCESS("GET MAJOIRNUM SUCCESS"),
         GETDAU_SUCCESS("DAU 데이터 조회를 성공했습니다"),
         GETMAU_SUCCESS("MAU 데이터 조회를 성공했습니다");
+        GETDATA_SUCCESS("데이터 응답 성공");
         private final String message;
     }
 
