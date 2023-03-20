@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
@@ -47,5 +48,17 @@ public class LoginHistoryRepositoryImpl implements LoginHistoryCustom{
 
     }
 
+    @Override
+    public long getWauByWeek(LocalDateTime time) {
+        LocalDateTime weekEnd = time.toLocalDate().atTime(23,59,59);
+        LocalDateTime weekStart = weekEnd.minusWeeks(1).plusDays(1);
 
+        return queryFactory.select(user.userId)
+                .distinct()
+                .from(user, loginHistory)
+                .join(loginHistory.user, user)
+                .where(loginHistory.loginTime.between(weekStart, weekEnd))
+                .fetchCount();
+
+    }
 }

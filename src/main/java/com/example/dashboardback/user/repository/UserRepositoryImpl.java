@@ -2,6 +2,7 @@ package com.example.dashboardback.user.repository;
 
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
 import java.sql.Date;
@@ -11,9 +12,11 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+
 import static com.example.dashboardback.loginhistory.entity.QLoginHistory.loginHistory;
 import static com.example.dashboardback.user.entity.QUser.user;
 
+@Slf4j
 public class UserRepositoryImpl implements UserRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
@@ -41,4 +44,16 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .where(user.createdAt.between(monthStart.atStartOfDay(), monthEnd.atTime(23, 59, 59)))
                 .fetchCount();
     }
+
+    @Override
+    public long getSignUpNumByWeek(LocalDateTime time) {
+        LocalDateTime weekEnd = time.toLocalDate().atTime(23,59,59);
+        LocalDateTime weekStart = weekEnd.minusWeeks(1).plusDays(1);
+
+        return queryFactory.selectFrom(user)
+                .where(user.createdAt.between(weekStart, weekEnd))
+                .fetchCount();
+    }
+
+
 }

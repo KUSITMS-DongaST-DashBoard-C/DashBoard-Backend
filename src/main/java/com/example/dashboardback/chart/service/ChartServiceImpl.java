@@ -8,6 +8,7 @@ import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
 import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
+import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
 import com.example.dashboardback.chart.repository.ChartRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
 import com.example.dashboardback.user.repository.UserRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +90,14 @@ public class ChartServiceImpl implements ChartService {
     }
 
     @Override
-    public List<AuDto.WauInfoResponse> getWAU() {
-        return null;
+    public List<WauInfoResponse> getWAU() {
+        List<WauInfoResponse> wauDtos= new ArrayList<>();
+        LocalDateTime now = LocalDateTime.of(2023, 3, 28, 17,00);
+        for(int i=0;i<7;i++){
+            wauDtos.add(WauInfoResponse.from(i,
+                    loginHistoryRepository.getWauByWeek(now.minusWeeks(i)),
+                    userRepository.getSignUpNumByWeek(now.minusWeeks(i))));
+        }
+        return wauDtos;
     }
 }
