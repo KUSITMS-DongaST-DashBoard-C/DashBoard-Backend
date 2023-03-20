@@ -4,6 +4,8 @@ package com.example.dashboardback.chart.service;
 import com.example.dashboardback.chart.constant.ChartConstants;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityNewMemberRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityNumRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityRatioRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
 import com.example.dashboardback.chart.dto.au.DauDto;
 import com.example.dashboardback.chart.repository.ChartRepository;
@@ -15,10 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,13 +40,30 @@ public class ChartServiceImpl implements ChartService {
        return chartRepository.getMajorNum();
     }
 
-//    @Override
-//    public List<GetCityTrafficRes> getCityData() {
-////        GetCityTrafficRes.builder()
-////                .getCityNewMemberResList(chartRepository.getNewMemCnt())
-////                .build();
-//        return null;
-//    }
+    @Override
+    public GetCityTrafficRes getCityData() {
+
+        Long userNum = chartRepository.getUserNum();
+        List<GetCityRatioRes> getCityRatioResList=new ArrayList<>();
+        List<GetCityNumRes> getCityNums=this.chartRepository.getCityNum();
+
+        for(GetCityNumRes getCityNum: getCityNums){
+
+            GetCityRatioRes getCityRatioRes = GetCityRatioRes.builder()
+                    .city(getCityNum.getCity())
+                    .ratio((long) ((getCityNum.getNum()*100.0/userNum)))
+                    .build();
+
+            getCityRatioResList.add(getCityRatioRes);
+        }
+
+         return GetCityTrafficRes.builder()
+                .getCityRatioResList(getCityRatioResList)
+                .getCityDailyVisitorsResList(chartRepository.getVisiotrsCnt())
+                .getCityNewMemberResList(chartRepository.getNewMemCnt())
+                .build();
+    }
+
     public List<DauDto> getDAU() {
         List<DauDto> dauDtos=new ArrayList<>();
         LocalDateTime now = LocalDateTime.of(2023,3,28,00,00);

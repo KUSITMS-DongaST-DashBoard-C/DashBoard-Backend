@@ -4,6 +4,7 @@ package com.example.dashboardback.chart.controller;
 import com.example.dashboardback.chart.constant.ChartConstants;
 import com.example.dashboardback.chart.constant.ChartConstants.EChartResponseMessage;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
+import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
 import com.example.dashboardback.chart.dto.au.DauDto;
 import com.example.dashboardback.chart.service.ChartService;
 import com.example.dashboardback.global.dto.ResponseDto;
@@ -33,11 +34,11 @@ public class ChartController {
         return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETDATA_SUCCESS.getMessage(),this.chartService.getMajorNum()));
     }
 
-//    @ApiOperation(value="시/도별 회원수", notes="시/도별 회원수의 비율을 보여줍니다.")
-//    @GetMapping("/city")
-//    public ResponseEntity<ResponseDto<List<GetCityTrafficRes>>> getCityNum() {
-//        return ResponseEntity.ok(ResponseDto.create(ChartConstants.EBoardResponseMessage.GETDATA_SUCCESS.getMessage(),this.chartService.getCityData()));
-//    }
+    @ApiOperation(value="시/도별 데이터", notes="시/도별 회원수의 비율/신규가입자/방문자 데이터를 보여줍니다.")
+    @GetMapping("/city")
+    public ResponseEntity<ResponseDto<GetCityTrafficRes>> getCityNum() {
+        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETDATA_SUCCESS.getMessage(),this.chartService.getCityData()));
+    }
 
     @ApiOperation(value = "DAU 데이터 조회", notes = "DAU 데이터를 조회합니다.")
     @GetMapping("/dau")
