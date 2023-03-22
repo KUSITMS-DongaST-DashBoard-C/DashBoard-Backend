@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public abstract class VodDto {
 
     @Getter
-    @Builder
     @ApiModel(description = "업로드 콘텐츠 응답 객체")
     public static class UploadInfoResponse{
         private String thumbnailUrl;
