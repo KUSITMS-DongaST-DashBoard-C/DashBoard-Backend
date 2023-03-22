@@ -10,34 +10,26 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class OriginalDto {
 
     @Getter
-    @Builder
     @ApiModel(description = "업로드 콘텐츠 응답 객체")
     public static class UploadInfoResponse{
         private String thumbnailUrl;
         private String title;
         private String major;
-        private LocalDateTime uploadDate;
+        private LocalDate expectedUploadTime;;
 
-        public static UploadInfoResponse from(String thumbnailUrl, String title, String major, LocalDateTime uploadDate){
-            return UploadInfoResponse.builder()
-                    .thumbnailUrl(thumbnailUrl)
-                    .title(title)
-                    .major(major)
-                    .uploadDate(uploadDate)
-                    .build();
-        }
 
         @QueryProjection
-        public UploadInfoResponse(String thumbnailUrl, String title, String major, LocalDateTime uploadDate){
+        public UploadInfoResponse(String thumbnailUrl, String title, String major, LocalDateTime expectedUploadTime){
             this.thumbnailUrl=thumbnailUrl;
             this.title=title;
             this.major=major;
-            this.uploadDate=uploadDate;
+            this.expectedUploadTime=expectedUploadTime.toLocalDate();
         }
     }
 
