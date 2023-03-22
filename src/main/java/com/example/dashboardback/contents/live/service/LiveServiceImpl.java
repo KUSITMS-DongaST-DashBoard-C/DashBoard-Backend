@@ -1,6 +1,9 @@
 package com.example.dashboardback.contents.live.service;
 
+import com.example.dashboardback.contents.live.dto.Req.DateReq;
 import com.example.dashboardback.contents.live.dto.Res.GetExpectedUploadRes;
+import com.example.dashboardback.contents.live.dto.Res.GetLiveOrderByViewNum;
+import com.example.dashboardback.contents.live.dto.Res.GetLiveOrderByViewNumRes;
 import com.example.dashboardback.contents.live.dto.Res.GetUploadedRes;
 import com.example.dashboardback.contents.live.entity.Live;
 import com.example.dashboardback.contents.live.repository.LiveRepository;
@@ -33,6 +36,21 @@ public class LiveServiceImpl implements LiveService {
                 .map(m -> new GetUploadedRes(m.getTitle(),m.getLecturer().getMajor(), m.getThumbnailUrl(),m.getLiveDate()))
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public GetLiveOrderByViewNumRes getLiveOrderByViewNum(DateReq dateReq, String orderBy) {
+        Long viewNum = liveRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+        List<Live> liveList = null;
+
+        if(orderBy.equals("asc")) liveList = liveRepository.getLiveOrderbyViewNumASC(dateReq.getStartDate(),dateReq.getEndDate());
+        else liveList=liveRepository.getLiveOrderbyViewNumDESC(dateReq.getStartDate(),dateReq.getEndDate());
+
+        List<GetLiveOrderByViewNum> collect = liveList.stream()
+                .map(m -> new GetLiveOrderByViewNum(m.getTitle(), m.getThumbnailUrl(),m.getLiveDate(),m.getViewNum(), m.getApplicableNum(), m.getApplicantNum()))
+                .collect(Collectors.toList());
+
+        return new GetLiveOrderByViewNumRes(viewNum,collect);
     }
 
 }
