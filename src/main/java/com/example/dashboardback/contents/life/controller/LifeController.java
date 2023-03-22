@@ -2,6 +2,7 @@ package com.example.dashboardback.contents.life.controller;
 
 import com.example.dashboardback.contents.life.constant.LifeConstants;
 import com.example.dashboardback.contents.life.dto.Res.GetExpectedUploadRes;
+import com.example.dashboardback.contents.life.dto.Res.GetUploadedRes;
 import com.example.dashboardback.contents.life.service.LifeService;
 import com.example.dashboardback.global.dto.ResponseDto;
 import io.swagger.annotations.Api;
@@ -28,5 +29,12 @@ public class LifeController {
     @GetMapping("/expectedUpload")
     public ResponseEntity<ResponseDto<List<GetExpectedUploadRes>>> getExpectedUpload(){
         return ResponseEntity.ok(ResponseDto.create(LifeConstants.EChartResponseMessage.GET_EXPECTEDUPLOAD_SUCCESS.getMessage(),this.lifeService.getExpectedUpload()));
+    }
+
+
+    @ApiOperation(value = "업로드 완료 life", notes = "업로드 완료된 life 데이터를 보여줍니다.")
+    @GetMapping("/uploaded")
+    public ResponseEntity<ResponseDto<List<GetUploadedRes>>> getUploaded(){
+        return ResponseEntity.ok(ResponseDto.create(LifeConstants.EChartResponseMessage.GET_UPLOADED_SUCCESS.getMessage(), this.lifeService.getUploaded()));
     }
 }
