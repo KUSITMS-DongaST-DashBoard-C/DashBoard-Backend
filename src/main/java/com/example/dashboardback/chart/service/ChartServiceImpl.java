@@ -11,7 +11,10 @@ import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
 import com.example.dashboardback.chart.dto.contents.ContentsDto;
+import com.example.dashboardback.chart.dto.contents.ContentsDto.GetContentsRatio;
 import com.example.dashboardback.chart.repository.ChartRepository;
+import com.example.dashboardback.contents.original.repository.OriginalRepository;
+import com.example.dashboardback.contents.vod.repository.VodRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
 import com.example.dashboardback.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +40,8 @@ public class ChartServiceImpl implements ChartService {
 
     private final LoginHistoryRepository loginHistoryRepository;
     private final UserRepository userRepository;
+    private final OriginalRepository originalRepository;
+    private final VodRepository vodRepository;
 
     @Override
     public List<GetMajorNumRes> getMajorNum() {
@@ -153,7 +158,14 @@ public class ChartServiceImpl implements ChartService {
     }
 
     @Override
-    public List<ContentsDto.GetContentsRatio> getContentsRatio() {
-        return null;
+    public List<GetContentsRatio> getContentsRatio() {
+        List<GetContentsRatio> contentsRatios=new ArrayList<>();
+        Long sum=this.originalRepository.getAllViewNum()+this.vodRepository.getAllViewNum();
+        GetContentsRatio original=new GetContentsRatio("original",this.originalRepository.getAllViewNum()*100/sum);
+        GetContentsRatio vod=new GetContentsRatio("vod", this.vodRepository.getAllViewNum()*100/sum);
+
+        contentsRatios.add(original);
+        contentsRatios.add(vod);
+        return contentsRatios;
     }
 }

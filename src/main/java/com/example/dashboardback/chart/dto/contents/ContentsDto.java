@@ -10,7 +10,7 @@ public abstract class ContentsDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    public class GetContentsRatio {
+    public static class GetContentsRatio {
 
         private String contents;
         private Long ratio;
