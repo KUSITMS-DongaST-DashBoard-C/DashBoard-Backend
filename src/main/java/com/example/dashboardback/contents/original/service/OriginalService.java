@@ -1,9 +1,8 @@
 package com.example.dashboardback.contents.original.service;
 
-import com.example.dashboardback.contents.original.dto.OrigianlDto;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoRequest;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoResponse;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.UploadInfoResponse;
+import com.example.dashboardback.contents.original.dto.OriginalDto.DetailInfoRequest;
+import com.example.dashboardback.contents.original.dto.OriginalDto.DetailInfoResponse;
+import com.example.dashboardback.contents.original.dto.OriginalDto.UploadInfoResponse;
 
 import java.util.List;
 

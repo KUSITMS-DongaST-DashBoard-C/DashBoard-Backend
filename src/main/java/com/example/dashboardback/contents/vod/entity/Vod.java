@@ -20,4 +20,6 @@ public class Vod extends Contents {
     @Column(name="vod_id")
     private Long vodId;
 
+    private String tags;
+
 }
