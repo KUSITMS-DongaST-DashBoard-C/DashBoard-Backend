@@ -12,5 +12,6 @@ public interface LiveService {
     List<GetUploadedRes> getUploaded();
     GetFilteredLiveRes getLiveOrderByViewNum(DateReq dateReq, String orderBy);
     GetFilteredLiveRes getLiveOrderByApplicantNum(DateReq dateReq);
+    GetFilteredLiveRes getLiveOrderByCommentNum(DateReq dateReq);
 
 }

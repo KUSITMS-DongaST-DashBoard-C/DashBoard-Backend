@@ -63,4 +63,14 @@ public class LiveServiceImpl implements LiveService {
         return new GetFilteredLiveRes(viewNum,collect);
     }
 
+    @Override
+    public GetFilteredLiveRes getLiveOrderByCommentNum(DateReq dateReq) {
+        Long viewNum = liveRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+
+        List<GetFilteredLive> collect = liveRepository.getLiveOrderByCommentNum(dateReq.getStartDate(),dateReq.getEndDate()).stream()
+                .map(m -> new GetFilteredLive(m.getTitle(), m.getThumbnailUrl(),m.getLiveDate(),m.getViewNum(), m.getApplicableNum(), m.getApplicantNum()))
+                .collect(Collectors.toList());
+        return new GetFilteredLiveRes(viewNum,collect);
+    }
+
 }

@@ -52,6 +52,9 @@ public class Live extends BaseTimeEntity {
     private Long viewNum;
 
     @Column
+    private Long commentNum;
+
+    @Column
     private boolean isDeleted;
 
 }
