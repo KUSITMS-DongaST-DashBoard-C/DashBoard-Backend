@@ -3,6 +3,7 @@ package com.example.dashboardback.contents.original.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,5 +57,31 @@ public abstract class OrigianlDto {
         @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}"
                 , message = "날짜 형식이 맞지 않습니다. yyyy-mm-dd 형식으로 입력해주세요.")
         private String endDate;
+    }
+
+    @Getter
+    @Builder
+    @ApiModel(description = "세부 콘텐츠 분석 응답 객체")
+    public static class DetailInfoResponse{
+        private String thumbnailUrl;
+        private String seriesName;
+        private Integer episodeNum;
+        private LocalDateTime uploadDate;
+        private Integer reviewNum;
+        private Integer likeNum;
+        private Integer commentNum;
+        private Long hits;
+
+        @QueryProjection
+        public DetailInfoResponse(String thumbnailUrl, String seriesName, Integer episodeNum, LocalDateTime uploadDate, Integer reviewNum, Integer likeNum, Integer commentNum, Long hits){
+            this.thumbnailUrl=thumbnailUrl;
+            this.seriesName=seriesName;
+            this.episodeNum=episodeNum;
+            this.uploadDate=uploadDate;
+            this.reviewNum=reviewNum;
+            this.likeNum=likeNum;
+            this.commentNum=commentNum;
+            this.hits=hits;
+        }
     }
 }

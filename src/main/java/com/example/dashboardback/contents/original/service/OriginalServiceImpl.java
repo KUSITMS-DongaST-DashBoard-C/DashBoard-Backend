@@ -1,5 +1,8 @@
 package com.example.dashboardback.contents.original.service;
 
+import com.example.dashboardback.contents.original.dto.OrigianlDto;
+import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoRequest;
+import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoResponse;
 import com.example.dashboardback.contents.original.dto.OrigianlDto.UploadInfoResponse;
 import com.example.dashboardback.contents.original.entity.Original;
 import com.example.dashboardback.contents.original.repository.OriginalRepository;
@@ -42,5 +45,30 @@ public class OriginalServiceImpl implements OriginalService{
     public List<UploadInfoResponse> getUpload() {
         return originalRepository.getUpload();
 
+    }
+
+    @Override
+    public List<DetailInfoResponse> getOrderByHitsDesc(DetailInfoRequest detailInfoRequest) {
+        return originalRepository.getOrderByHitsDesc(detailInfoRequest);
+    }
+
+    @Override
+    public List<DetailInfoResponse> getOrderByHitsAsc(DetailInfoRequest detailInfoRequest) {
+        return originalRepository.getOrderByHitsAsc(detailInfoRequest);
+    }
+
+    @Override
+    public List<DetailInfoResponse> getOrderByReplyDesc(DetailInfoRequest detailInfoRequest) {
+        return originalRepository.getOrderByReplyDesc(detailInfoRequest);
+    }
+
+    @Override
+    public List<DetailInfoResponse> getOrderByLikesDesc(DetailInfoRequest detailInfoRequest) {
+        return originalRepository.getOrderByLikesDesc(detailInfoRequest);
+    }
+
+    @Override
+    public List<DetailInfoResponse> getOrderByReviewDesc(DetailInfoRequest detailInfoRequest) {
+        return originalRepository.getOrderByReviewDesc(detailInfoRequest);
     }
 }
