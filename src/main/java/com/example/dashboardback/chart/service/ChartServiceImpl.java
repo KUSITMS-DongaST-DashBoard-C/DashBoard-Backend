@@ -10,6 +10,7 @@ import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
+import com.example.dashboardback.chart.dto.contents.ContentsDto;
 import com.example.dashboardback.chart.repository.ChartRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
 import com.example.dashboardback.user.repository.UserRepository;
@@ -149,5 +150,10 @@ public class ChartServiceImpl implements ChartService {
 
         return GetDailyData.GetDailyDataRes.from(visitorData,pageViewData,newMemberData,bounceRateData);
 
+    }
+
+    @Override
+    public List<ContentsDto.GetContentsRatio> getContentsRatio() {
+        return null;
     }
 }

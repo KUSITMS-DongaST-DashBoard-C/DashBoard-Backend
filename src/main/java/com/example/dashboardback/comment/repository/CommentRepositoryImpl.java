@@ -30,6 +30,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
     public List<Comment> findAllCommentsByMemoId(Long memoId) {
         return queryFactory.selectFrom(comment)
                 .where(memoIdEq(memoId))
+                .where(comment.isDeleted.eq(false))
                 .orderBy(
                         comment.createdAt.asc()
                 )

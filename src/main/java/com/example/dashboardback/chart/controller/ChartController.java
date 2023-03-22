@@ -9,6 +9,8 @@ import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
+import com.example.dashboardback.chart.dto.contents.ContentsDto;
+import com.example.dashboardback.chart.dto.contents.ContentsDto.GetContentsRatio;
 import com.example.dashboardback.chart.service.ChartService;
 import com.example.dashboardback.global.dto.ResponseDto;
 import io.swagger.annotations.Api;
@@ -73,4 +75,10 @@ public class ChartController {
     }
 
 
+    @ApiOperation(value = "콘텐츠별 유입률 조회", notes = "콘텐츠별 유입률을 조회합니다.")
+    @GetMapping("/contents")
+    public ResponseEntity<ResponseDto<List<GetContentsRatio>>> getContentsRatio(){
+        return ResponseEntity.ok(ResponseDto.create(EChartResponseMessage.GETCONTENTS_SUCCESS.getMessage(),
+                this.chartService.getContentsRatio()));
+    }
 }
