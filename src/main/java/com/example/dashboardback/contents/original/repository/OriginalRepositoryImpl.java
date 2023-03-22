@@ -45,7 +45,8 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
                         original.reviewNum,
                         original.likeNum,
                         original.commentNum,
-                        original.hits))
+                        original.hits,
+                        original.major))
                 .from(original)
                 .where(original.isUploaded.eq(true))
                 .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
@@ -64,7 +65,8 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
                         original.reviewNum,
                         original.likeNum,
                         original.commentNum,
-                        original.hits))
+                        original.hits,
+                        original.major))
                 .from(original)
                 .where(original.isUploaded.eq(true))
                 .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
@@ -83,7 +85,8 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
                         original.reviewNum,
                         original.likeNum,
                         original.commentNum,
-                        original.hits))
+                        original.hits,
+                        original.major))
                 .from(original)
                 .where(original.isUploaded.eq(true))
                 .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
@@ -102,7 +105,8 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
                         original.reviewNum,
                         original.likeNum,
                         original.commentNum,
-                        original.hits))
+                        original.hits,
+                        original.major))
                 .from(original)
                 .where(original.isUploaded.eq(true))
                 .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
@@ -121,13 +125,31 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
                         original.reviewNum,
                         original.likeNum,
                         original.commentNum,
-                        original.hits))
+                        original.hits,
+                        original.major))
                 .from(original)
                 .where(original.isUploaded.eq(true))
                 .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
                 .orderBy(original.reviewNum.desc())
                 .limit(3)
                 .fetch();
+    }
+
+    @Override
+    public Long getViewNum(DetailInfoRequest detailInfoRequest) {
+        return queryFactory.select(original.hits.sum())
+                .from(original)
+                .where(original.isUploaded.eq(true))
+                .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
+                .fetchOne();
+    }
+
+    @Override
+    public Long getAllViewNum() {
+        return queryFactory.select(original.hits.sum())
+                .from(original)
+                .where(original.isUploaded.eq(true))
+                .fetchOne();
     }
 
     private LocalDateTime toLocalDateTime(String date){

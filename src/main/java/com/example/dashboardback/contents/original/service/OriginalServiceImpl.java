@@ -5,6 +5,7 @@ import com.example.dashboardback.contents.original.dto.OriginalDto.DetailInfoRes
 import com.example.dashboardback.contents.original.dto.OriginalDto.UploadInfoResponse;
 import com.example.dashboardback.contents.original.entity.Original;
 import com.example.dashboardback.contents.original.repository.OriginalRepository;
+import com.example.dashboardback.contents.vod.dto.VodDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,4 +71,10 @@ public class OriginalServiceImpl implements OriginalService{
     public List<DetailInfoResponse> getOrderByReviewDesc(DetailInfoRequest detailInfoRequest) {
         return originalRepository.getOrderByReviewDesc(detailInfoRequest);
     }
+
+    @Override
+    public Long getHits(DetailInfoRequest detailInfoRequest) {
+        return originalRepository.getViewNum(detailInfoRequest);
+    }
+
 }

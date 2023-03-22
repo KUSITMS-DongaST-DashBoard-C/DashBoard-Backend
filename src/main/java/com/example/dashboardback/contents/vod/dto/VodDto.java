@@ -58,15 +58,17 @@ public abstract class VodDto {
         private String title;
         private Long vodId;
         private LocalDateTime uploadDate;
-        private Long hits;
+        private Long viewNum;
+        private String major;
 
         @QueryProjection
-        public DetailInfoResponse(String thumbnailUrl, String title, Long vodId, LocalDateTime uploadDate, Long hits){
+        public DetailInfoResponse(String thumbnailUrl, String title, Long vodId, LocalDateTime uploadDate, Long viewNum, String major){
             this.thumbnailUrl=thumbnailUrl;
             this.title=title;
             this.vodId=vodId;
             this.uploadDate=uploadDate;
-            this.hits=hits;
+            this.viewNum=viewNum;
+            this.major=major;
         }
     }
 }
