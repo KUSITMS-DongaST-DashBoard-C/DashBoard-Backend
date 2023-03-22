@@ -1,10 +1,10 @@
 package com.example.dashboardback.contents.original.controller;
 
 import com.example.dashboardback.contents.original.constant.OriginalConstants;
-import com.example.dashboardback.contents.original.dto.OrigianlDto;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoRequest;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoResponse;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.UploadInfoResponse;
+import com.example.dashboardback.contents.original.dto.OriginalDto;
+import com.example.dashboardback.contents.original.dto.OriginalDto.DetailInfoRequest;
+import com.example.dashboardback.contents.original.dto.OriginalDto.DetailInfoResponse;
+import com.example.dashboardback.contents.original.dto.OriginalDto.UploadInfoResponse;
 import com.example.dashboardback.contents.original.service.OriginalService;
 import com.example.dashboardback.global.dto.ResponseDto;
 import io.swagger.annotations.Api;

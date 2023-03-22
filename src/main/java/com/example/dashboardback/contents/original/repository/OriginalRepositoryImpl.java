@@ -1,10 +1,10 @@
 package com.example.dashboardback.contents.original.repository;
 
-import com.example.dashboardback.contents.original.dto.OrigianlDto;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.DetailInfoRequest;
-import com.example.dashboardback.contents.original.dto.OrigianlDto.UploadInfoResponse;
-import com.example.dashboardback.contents.original.dto.QOrigianlDto_DetailInfoResponse;
-import com.example.dashboardback.contents.original.dto.QOrigianlDto_UploadInfoResponse;
+import com.example.dashboardback.contents.original.dto.OriginalDto;
+import com.example.dashboardback.contents.original.dto.OriginalDto.DetailInfoRequest;
+import com.example.dashboardback.contents.original.dto.OriginalDto.UploadInfoResponse;
+import com.example.dashboardback.contents.original.dto.QOriginalDto_DetailInfoResponse;
+import com.example.dashboardback.contents.original.dto.QOriginalDto_UploadInfoResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
@@ -24,7 +24,7 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
     @Override
     public List<UploadInfoResponse> getUpload() {
         return queryFactory
-                .select(new QOrigianlDto_UploadInfoResponse(original.thumbnailUrl,
+                .select(new QOriginalDto_UploadInfoResponse(original.thumbnailUrl,
                 original.title,
                 original.major,
                 original.uploadDate))
@@ -36,9 +36,9 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
     }
 
     @Override
-    public List<OrigianlDto.DetailInfoResponse> getOrderByHitsDesc(DetailInfoRequest detailInfoRequest) {
+    public List<OriginalDto.DetailInfoResponse> getOrderByHitsDesc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
-                .select(new QOrigianlDto_DetailInfoResponse(original.thumbnailUrl,
+                .select(new QOriginalDto_DetailInfoResponse(original.thumbnailUrl,
                         original.seriesName,
                         original.episodeNum,
                         original.uploadDate,
@@ -55,9 +55,9 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
     }
 
     @Override
-    public List<OrigianlDto.DetailInfoResponse> getOrderByHitsAsc(DetailInfoRequest detailInfoRequest) {
+    public List<OriginalDto.DetailInfoResponse> getOrderByHitsAsc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
-                .select(new QOrigianlDto_DetailInfoResponse(original.thumbnailUrl,
+                .select(new QOriginalDto_DetailInfoResponse(original.thumbnailUrl,
                         original.seriesName,
                         original.episodeNum,
                         original.uploadDate,
@@ -74,9 +74,9 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
     }
 
     @Override
-    public List<OrigianlDto.DetailInfoResponse> getOrderByReplyDesc(DetailInfoRequest detailInfoRequest) {
+    public List<OriginalDto.DetailInfoResponse> getOrderByReplyDesc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
-                .select(new QOrigianlDto_DetailInfoResponse(original.thumbnailUrl,
+                .select(new QOriginalDto_DetailInfoResponse(original.thumbnailUrl,
                         original.seriesName,
                         original.episodeNum,
                         original.uploadDate,
@@ -93,9 +93,9 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
     }
 
     @Override
-    public List<OrigianlDto.DetailInfoResponse> getOrderByLikesDesc(DetailInfoRequest detailInfoRequest) {
+    public List<OriginalDto.DetailInfoResponse> getOrderByLikesDesc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
-                .select(new QOrigianlDto_DetailInfoResponse(original.thumbnailUrl,
+                .select(new QOriginalDto_DetailInfoResponse(original.thumbnailUrl,
                         original.seriesName,
                         original.episodeNum,
                         original.uploadDate,
@@ -112,9 +112,9 @@ public class OriginalRepositoryImpl implements OriginalRepositoryCustom{
     }
 
     @Override
-    public List<OrigianlDto.DetailInfoResponse> getOrderByReviewDesc(DetailInfoRequest detailInfoRequest) {
+    public List<OriginalDto.DetailInfoResponse> getOrderByReviewDesc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
-                .select(new QOrigianlDto_DetailInfoResponse(original.thumbnailUrl,
+                .select(new QOriginalDto_DetailInfoResponse(original.thumbnailUrl,
                         original.seriesName,
                         original.episodeNum,
                         original.uploadDate,

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
-public abstract class OrigianlDto {
+public abstract class OriginalDto {
 
     @Getter
     @Builder
