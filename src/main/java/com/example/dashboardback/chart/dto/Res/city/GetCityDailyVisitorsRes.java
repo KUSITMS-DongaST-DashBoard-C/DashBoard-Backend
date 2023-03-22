@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class GetCityDailyVisitorsRes {
 
     private String city;
-    private Long newMemberCnt;
+    private Long visitorCnt;
 
 }
