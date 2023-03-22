@@ -11,7 +11,13 @@ public interface LiveRepository extends JpaRepository<Live, Long> {
 
     @Query(value = "select * " +
             "from live " +
-            "where datediff(live.live_date, curdate())>0  " +
+            "where datediff(live.live_date, curdate())>=0  " +
             "order by datediff(live.live_date, curdate()) asc;", nativeQuery = true)
     public List<Live> getExpectedUpload();
+
+    @Query(value ="select * " +
+            "from live " +
+            "where datediff(live.live_date, curdate())<0  " +
+            "order by datediff(live.live_date, curdate()) desc;", nativeQuery = true)
+    public List<Live> getUploaded();
 }
