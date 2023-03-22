@@ -1,4 +1,4 @@
-package com.example.dashboardback.contents.live.dto.Res;
+package com.example.dashboardback.contents.life.dto.Res;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class GetLiveOrderByViewNum {
+public class GetUploadedRes {
     private String title;
+    private String category;
     private String thumbnailUrl;
-    private Date uploadDate;
-    private Long viewNum;
-    private Long applicableNum; //신청가능인원
-    private Long applicantNum; //신청인원
+    private Date uploadTime;
 }

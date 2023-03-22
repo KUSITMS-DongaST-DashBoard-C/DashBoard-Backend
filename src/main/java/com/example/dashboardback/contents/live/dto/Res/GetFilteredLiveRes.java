@@ -5,14 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class GetLiveOrderByViewNumRes {
+public class GetFilteredLiveRes {
     private Long totalViewNum;
-    private List<GetLiveOrderByViewNum> getLiveOrderByViewNumList;
+    private List<GetFilteredLive> getFilteredLiveResList;
 }
