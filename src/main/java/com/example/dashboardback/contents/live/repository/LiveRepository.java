@@ -41,4 +41,10 @@ public interface LiveRepository extends JpaRepository<Live, Long> {
             "where live.live_date>=:endDate and live.live_date<=:startDate " +
             "order by live.view_num;", nativeQuery = true)
     public Long getViewNum(@Param("startDate")String startDate, @Param("endDate")String endDate);
+
+    @Query(value="select * " +
+            "from live " +
+            "where live.live_date>=:endDate and live.live_date<=:startDate " +
+            "order by live.applicant_num desc;", nativeQuery = true)
+    public List<Live> getLiveOrderByApplicantNum(@Param("startDate")String startDate, @Param("endDate")String endDate);
 }

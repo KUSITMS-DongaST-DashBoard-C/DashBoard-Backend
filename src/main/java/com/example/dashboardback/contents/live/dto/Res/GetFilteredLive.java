@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class GetLiveOrderByViewNum {
+public class GetFilteredLive {
     private String title;
     private String thumbnailUrl;
     private Date uploadDate;

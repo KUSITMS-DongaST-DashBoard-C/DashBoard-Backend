@@ -3,7 +3,7 @@ package com.example.dashboardback.contents.live.controller;
 import com.example.dashboardback.contents.live.constant.LiveConstants;
 import com.example.dashboardback.contents.live.dto.Req.DateReq;
 import com.example.dashboardback.contents.live.dto.Res.GetExpectedUploadRes;
-import com.example.dashboardback.contents.live.dto.Res.GetLiveOrderByViewNumRes;
+import com.example.dashboardback.contents.live.dto.Res.GetFilteredLiveRes;
 import com.example.dashboardback.contents.live.dto.Res.GetUploadedRes;
 import com.example.dashboardback.contents.live.service.LiveService;
 import com.example.dashboardback.global.dto.ResponseDto;
@@ -37,10 +37,18 @@ private final LiveService liveService;
 
     @ApiOperation(value = "Live 세부 컨텐츠-조회수에 따른 정렬", notes = "조회수 정렬에 따른 세부 컨텐츠를 보여줍니다.")
     @GetMapping("/detail/view/{orderBy}")
-    public ResponseEntity<ResponseDto<GetLiveOrderByViewNumRes>> getUploaded(
+    public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByViewNum(
             @PathVariable("orderBy") String orderBy, //asc: 오름차순(조회수 낮은순), desc:내림차순(조회수 높은순)
             @RequestBody DateReq dateReq){
-        GetLiveOrderByViewNumRes getLiveOrderByViewNumRes = this.liveService.getLiveOrderByViewNum(dateReq, orderBy);
-        return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getLiveOrderByViewNumRes));
+        GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByViewNum(dateReq, orderBy);
+        return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
+    }
+
+    @ApiOperation(value = "Live 세부 컨텐츠-신청인원수에 따른 정렬", notes = "신청인원 수에 따른 세부 컨텐츠를 보여줍니다.")
+    @GetMapping("/detail/applicants")
+    public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByApplicants(
+            @RequestBody DateReq dateReq){
+        GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByApplicantNum(dateReq);
+        return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
     }
 }
