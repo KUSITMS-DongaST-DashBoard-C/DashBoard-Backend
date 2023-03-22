@@ -14,7 +14,7 @@ import java.util.Date;
 public class GetLiveOrderByViewNum {
     private String title;
     private String thumbnailUrl;
-    private Date liveDate;
+    private Date uploadDate;
     private Long viewNum;
     private Long applicableNum; //신청가능인원
     private Long applicantNum; //신청인원
