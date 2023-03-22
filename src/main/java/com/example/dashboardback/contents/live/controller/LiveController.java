@@ -52,7 +52,7 @@ private final LiveService liveService;
         return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
     }
 
-    @ApiOperation(value = "Live 세부 컨텐츠-신청인원수에 따른 정렬", notes = "신청인원 수에 따른 세부 컨텐츠를 보여줍니다.")
+    @ApiOperation(value = "Live 세부 컨텐츠-댓글 수에 따른 정렬", notes = "댓글 수에 따른 세부 컨텐츠를 보여줍니다.")
     @GetMapping("/detail/comment")
     public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByComment(
             @RequestBody DateReq dateReq){
