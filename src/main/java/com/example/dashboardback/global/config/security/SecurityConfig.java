@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/v3/api-docs").permitAll()
                 .antMatchers("/image/**").permitAll()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/admin/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
