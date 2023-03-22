@@ -37,8 +37,6 @@ private final LiveService liveService;
 
     @ApiOperation(value = "Live 세부 컨텐츠-조회수에 따른 정렬", notes = "조회수 정렬에 따른 세부 컨텐츠를 보여줍니다.")
     @GetMapping("/detail/view/{orderBy}")
-    //detai/comment
-    //detail/likes
     public ResponseEntity<ResponseDto<GetLiveOrderByViewNumRes>> getUploaded(
             @PathVariable("orderBy") String orderBy, //asc: 오름차순(조회수 낮은순), desc:내림차순(조회수 높은순)
             @RequestBody DateReq dateReq){

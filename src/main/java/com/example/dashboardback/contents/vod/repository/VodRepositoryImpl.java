@@ -3,6 +3,7 @@ package com.example.dashboardback.contents.vod.repository;
 import com.example.dashboardback.contents.vod.dto.QVodDto_DetailInfoResponse;
 import com.example.dashboardback.contents.vod.dto.QVodDto_UploadInfoResponse;
 import com.example.dashboardback.contents.vod.dto.VodDto;
+import com.example.dashboardback.contents.vod.dto.VodDto.DetailInfoRequest;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static com.example.dashboardback.contents.original.entity.QOriginal.original;
 import static com.example.dashboardback.contents.vod.entity.QVod.vod;
 
 public class VodRepositoryImpl implements VodRepositoryCustom{
@@ -35,13 +37,14 @@ public class VodRepositoryImpl implements VodRepositoryCustom{
     }
 
     @Override
-    public List<VodDto.DetailInfoResponse> getOrderByHitsDesc(VodDto.DetailInfoRequest detailInfoRequest) {
+    public List<VodDto.DetailInfoResponse> getOrderByHitsDesc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
                 .select(new QVodDto_DetailInfoResponse(vod.thumbnailUrl,
                         vod.title,
                         vod.vodId,
                         vod.uploadDate,
-                        vod.hits))
+                        vod.hits,
+                        vod.major))
                 .from(vod)
                 .where(vod.isUploaded.eq(true))
                 .where(vod.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
@@ -51,19 +54,37 @@ public class VodRepositoryImpl implements VodRepositoryCustom{
     }
 
     @Override
-    public List<VodDto.DetailInfoResponse> getOrderByHitsAsc(VodDto.DetailInfoRequest detailInfoRequest) {
+    public List<VodDto.DetailInfoResponse> getOrderByHitsAsc(DetailInfoRequest detailInfoRequest) {
         return queryFactory
                 .select(new QVodDto_DetailInfoResponse(vod.thumbnailUrl,
                         vod.title,
                         vod.vodId,
                         vod.uploadDate,
-                        vod.hits))
+                        vod.hits,
+                        vod.major))
                 .from(vod)
                 .where(vod.isUploaded.eq(true))
                 .where(vod.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
                 .orderBy(vod.hits.asc())
                 .limit(3)
                 .fetch();
+    }
+
+    @Override
+    public Long getViewNum(DetailInfoRequest detailInfoRequest) {
+        return queryFactory.select(original.hits.sum())
+                .from(original)
+                .where(original.isUploaded.eq(true))
+                .where(original.uploadDate.between(toLocalDateTime(detailInfoRequest.getStartDate()),toLocalDateTime(detailInfoRequest.getEndDate())))
+                .fetchOne();
+    }
+
+    @Override
+    public Long getAllViewNum() {
+        return queryFactory.select(original.hits.sum())
+                .from(original)
+                .where(original.isUploaded.eq(true))
+                .fetchOne();
     }
 
     private LocalDateTime toLocalDateTime(String date){

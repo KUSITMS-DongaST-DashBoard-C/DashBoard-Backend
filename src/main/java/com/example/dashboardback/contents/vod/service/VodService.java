@@ -18,4 +18,6 @@ public interface VodService {
 
     List<DetailInfoResponse> getOrderByHitsAsc(DetailInfoRequest detailInfoRequest);
 
+    Long getHits(DetailInfoRequest detailInfoRequest);
+
 }

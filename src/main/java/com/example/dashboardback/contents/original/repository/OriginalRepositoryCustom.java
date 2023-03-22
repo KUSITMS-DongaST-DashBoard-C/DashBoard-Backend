@@ -15,4 +15,6 @@ public interface OriginalRepositoryCustom {
     List<DetailInfoResponse> getOrderByReplyDesc(DetailInfoRequest detailInfoRequest);
     List<DetailInfoResponse> getOrderByLikesDesc(DetailInfoRequest detailInfoRequest);
     List<DetailInfoResponse> getOrderByReviewDesc (DetailInfoRequest detailInfoRequest);
+    Long getViewNum(DetailInfoRequest detailInfoRequest);
+    Long getAllViewNum();
 }

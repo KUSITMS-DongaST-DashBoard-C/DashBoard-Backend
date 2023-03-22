@@ -50,6 +50,10 @@ public class VodServiceImpl implements VodService{
         return vodRepository.getOrderByHitsAsc(detailInfoRequest);
     }
 
+    @Override
+    public Long getHits(VodDto.DetailInfoRequest detailInfoRequest) {
+        return vodRepository.getViewNum(detailInfoRequest);
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.dashboardback.contents.vod.repository;
 
+import com.example.dashboardback.contents.original.dto.OriginalDto;
 import com.example.dashboardback.contents.vod.dto.VodDto.DetailInfoRequest;
 import com.example.dashboardback.contents.vod.dto.VodDto.DetailInfoResponse;
 import com.example.dashboardback.contents.vod.dto.VodDto.UploadInfoResponse;
@@ -10,4 +11,6 @@ public interface VodRepositoryCustom {
     List<UploadInfoResponse> getUpload();
     List<DetailInfoResponse> getOrderByHitsDesc(DetailInfoRequest detailInfoRequest);
     List<DetailInfoResponse> getOrderByHitsAsc(DetailInfoRequest detailInfoRequest);
+    Long getViewNum(DetailInfoRequest detailInfoRequest);
+    Long getAllViewNum();
 }

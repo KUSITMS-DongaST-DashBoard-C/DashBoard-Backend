@@ -45,16 +45,16 @@ public class VodController {
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 조회수 많은 순으로 정렬", notes="세부 콘텐츠 분석 조회수 많은 순으로 정렬")
-    @GetMapping("/orderByHitsDesc")
+    @GetMapping("/detail/view/desc")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByHitsDesc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(EVodResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.vodService.getHits(detailInfoRequest),
                 this.vodService.getOrderByHitsDesc(detailInfoRequest)));
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 조회수 적은 순으로 정렬", notes="세부 콘텐츠 분석 조회수 적은 순으로 정렬")
-    @GetMapping("/orderByHitsAsc")
+    @GetMapping("/detail/view/asc")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByHitsAsc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(EVodResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.vodService.getHits(detailInfoRequest),
                 this.vodService.getOrderByHitsAsc(detailInfoRequest)));
     }
 }

@@ -43,37 +43,37 @@ public class OriginalController {
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 조회수 많은 순으로 정렬", notes="세부 콘텐츠 분석 조회수 많은 순으로 정렬")
-    @GetMapping("/orderByHitsDesc")
+    @GetMapping("/detail/view/desc")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByHitsDesc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(OriginalConstants.EOriginalResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.originalService.getHits(detailInfoRequest),
                 this.originalService.getOrderByHitsDesc(detailInfoRequest)));
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 조회수 적은 순으로 정렬", notes="세부 콘텐츠 분석 조회수 적은 순으로 정렬")
-    @GetMapping("/orderByHitsAsc")
+    @GetMapping("/detail/view/asc")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByHitsAsc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(OriginalConstants.EOriginalResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.originalService.getHits(detailInfoRequest),
                 this.originalService.getOrderByHitsAsc(detailInfoRequest)));
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 댓글 많은 순으로 정렬", notes="세부 콘텐츠 분석 댓글 많은 순으로 정렬")
-    @GetMapping("/orderByReplyDesc")
+    @GetMapping("/detail/comment")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByReplyDesc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(OriginalConstants.EOriginalResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.originalService.getHits(detailInfoRequest),
                 this.originalService.getOrderByReplyDesc(detailInfoRequest)));
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 좋아요 많은 순으로 정렬", notes="세부 콘텐츠 분석 좋아요 많은 순으로 정렬")
-    @GetMapping("/orderByLikesDesc")
+    @GetMapping("/detail/like")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByLikesDesc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(OriginalConstants.EOriginalResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.originalService.getHits(detailInfoRequest),
                 this.originalService.getOrderByLikesDesc(detailInfoRequest)));
     }
 
     @ApiOperation(value="세부 콘텐츠 분석 리뷰 많은 순으로 정렬", notes="세부 콘텐츠 분석 리뷰 많은 순으로 정렬")
-    @GetMapping("/orderByReviewDesc")
+    @GetMapping("/detail/review")
     public ResponseEntity<ResponseDto<List<DetailInfoResponse>>> getOrderByReviewDesc(@Valid @ModelAttribute DetailInfoRequest detailInfoRequest){
-        return ResponseEntity.ok(ResponseDto.create(OriginalConstants.EOriginalResponseMessage.GETDETAIL_SUCCESS.getMessage(),
+        return ResponseEntity.ok(ResponseDto.create("조회수: "+this.originalService.getHits(detailInfoRequest),
                 this.originalService.getOrderByReviewDesc(detailInfoRequest)));
     }
 
