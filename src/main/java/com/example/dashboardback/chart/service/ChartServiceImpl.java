@@ -13,6 +13,8 @@ import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
 import com.example.dashboardback.chart.dto.contents.ContentsDto;
 import com.example.dashboardback.chart.dto.contents.ContentsDto.GetContentsRatio;
 import com.example.dashboardback.chart.repository.ChartRepository;
+import com.example.dashboardback.contents.life.repository.LifeRepository;
+import com.example.dashboardback.contents.live.repository.LiveRepository;
 import com.example.dashboardback.contents.original.repository.OriginalRepository;
 import com.example.dashboardback.contents.vod.repository.VodRepository;
 import com.example.dashboardback.loginhistory.repository.LoginHistoryRepository;
@@ -42,6 +44,8 @@ public class ChartServiceImpl implements ChartService {
     private final UserRepository userRepository;
     private final OriginalRepository originalRepository;
     private final VodRepository vodRepository;
+    private final LiveRepository liveRepository;
+    private final LifeRepository lifeRepository;
 
     @Override
     public List<GetMajorNumRes> getMajorNum() {
@@ -160,12 +164,15 @@ public class ChartServiceImpl implements ChartService {
     @Override
     public List<GetContentsRatio> getContentsRatio() {
         List<GetContentsRatio> contentsRatios=new ArrayList<>();
-        Long sum=this.originalRepository.getAllViewNum()+this.vodRepository.getAllViewNum();
+        Long sum=this.originalRepository.getAllViewNum()+this.vodRepository.getAllViewNum()+this.liveRepository.getAllViewNum()+this.lifeRepository.getAllViewNum();
         GetContentsRatio original=new GetContentsRatio("original",this.originalRepository.getAllViewNum()*100/sum);
         GetContentsRatio vod=new GetContentsRatio("vod", this.vodRepository.getAllViewNum()*100/sum);
-
+        GetContentsRatio live=new GetContentsRatio("live", this.liveRepository.getAllViewNum()*100/sum);
+        GetContentsRatio life=new GetContentsRatio("life", this.lifeRepository.getAllViewNum()*100/sum);
         contentsRatios.add(original);
         contentsRatios.add(vod);
+        contentsRatios.add(live);
+        contentsRatios.add(life);
         return contentsRatios;
     }
 }
