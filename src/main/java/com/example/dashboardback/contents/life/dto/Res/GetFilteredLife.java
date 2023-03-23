@@ -15,7 +15,6 @@ public class GetFilteredLife {
 
     private String title;
     private String category;
-    private String thumbnailUrl;
     private Date uploadDate;
     private Long viewNum;
     private Long commentNum;

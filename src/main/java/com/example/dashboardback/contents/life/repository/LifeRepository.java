@@ -1,6 +1,7 @@
 package com.example.dashboardback.contents.life.repository;
 
 import com.example.dashboardback.contents.life.entity.Life;
+import com.example.dashboardback.contents.live.entity.Live;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,4 +43,10 @@ public interface LifeRepository extends JpaRepository<Life, Long> {
             "order by life.view_num DESC ;", nativeQuery = true)
     public List<Life> getLifeOrderbyViewNumDESC(@Param("startDate")String startDate, @Param("endDate")String endDate);
 
+
+    @Query(value="select * " +
+            "from life " +
+            "where life.upload_date>=:endDate and life.upload_date<=:startDate " +
+            "order by life.comment_num desc;", nativeQuery = true)
+    public List<Life> getLifeOrderByCommentNum(@Param("startDate")String startDate, @Param("endDate")String endDate);
 }

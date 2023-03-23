@@ -12,4 +12,6 @@ public interface LifeService {
     List<GetUploadedRes> getUploaded();
 
     GetFilteredLifeRes getLifeOrderByViewNum(DateReq dateReq, String orderBy);
+
+    GetFilteredLifeRes getLifeOrderByCommentNum(DateReq dateReq);
 }

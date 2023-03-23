@@ -14,6 +14,5 @@ import java.util.Date;
 public class GetExpectedUploadRes {
     private String title;
     private String category;
-    private String thumbnailUrl;
     private Date expectedUploadTime;
 }

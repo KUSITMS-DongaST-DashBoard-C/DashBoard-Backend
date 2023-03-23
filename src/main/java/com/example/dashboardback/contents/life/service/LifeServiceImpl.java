@@ -7,6 +7,7 @@ import com.example.dashboardback.contents.life.dto.Res.GetUploadedRes;
 import com.example.dashboardback.contents.life.entity.Life;
 import com.example.dashboardback.contents.life.repository.LifeRepository;
 import com.example.dashboardback.contents.live.dto.Req.DateReq;
+import com.example.dashboardback.contents.live.dto.Res.GetFilteredLive;
 import com.example.dashboardback.contents.live.dto.Res.GetFilteredLiveRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ public class LifeServiceImpl implements LifeService {
     @Override
     public List<GetExpectedUploadRes> getExpectedUpload() {
         List<GetExpectedUploadRes> collect = lifeRepository.getExpectedUpload().stream()
-                .map(m -> new GetExpectedUploadRes(m.getTitle(),m.getCategory(), m.getThumbnailUrl(),m.getUploadDate()))
+                .map(m -> new GetExpectedUploadRes(m.getTitle(),m.getCategory(),m.getUploadDate()))
                 .collect(Collectors.toList());
         return collect;
     }
@@ -48,9 +49,19 @@ public class LifeServiceImpl implements LifeService {
         else lifeList=lifeRepository.getLifeOrderbyViewNumDESC(dateReq.getStartDate(),dateReq.getEndDate());
 
         List<GetFilteredLife> collect = lifeList.stream()
-                .map(m -> new GetFilteredLife(m.getTitle(),m.getCategory(), m.getThumbnailUrl(),m.getUploadDate(),m.getViewNum(),m.getCommentNum(),m.getLikeNum()))
+                .map(m -> new GetFilteredLife(m.getTitle(),m.getCategory(),m.getUploadDate(),m.getViewNum(),m.getCommentNum(),m.getLikeNum()))
                 .collect(Collectors.toList());
 
+        return new GetFilteredLifeRes(viewNum,collect);
+    }
+
+    @Override
+    public GetFilteredLifeRes getLifeOrderByCommentNum(DateReq dateReq) {
+        Long viewNum = lifeRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+
+        List<GetFilteredLife> collect = lifeRepository.getLifeOrderByCommentNum(dateReq.getStartDate(),dateReq.getEndDate()).stream()
+                .map(m -> new GetFilteredLife(m.getTitle(),m.getCategory(),m.getUploadDate(),m.getViewNum(),m.getCommentNum(),m.getLikeNum()))
+                .collect(Collectors.toList());
         return new GetFilteredLifeRes(viewNum,collect);
     }
 }
