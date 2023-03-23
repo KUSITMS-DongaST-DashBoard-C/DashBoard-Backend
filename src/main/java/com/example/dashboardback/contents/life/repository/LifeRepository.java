@@ -19,4 +19,7 @@ public interface LifeRepository extends JpaRepository<Life, Long> {
             "where datediff(life.upload_date, curdate())<0  " +
             "order by datediff(life.upload_date, curdate()) desc;", nativeQuery = true)
     public List<Life> getUploaded();
+
+    @Query("select sum(f.viewNum) from Life f")
+    public Long getAllViewNum();
 }
