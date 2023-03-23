@@ -53,4 +53,7 @@ public interface LiveRepository extends JpaRepository<Live, Long> {
             "where live.live_date>=:endDate and live.live_date<=:startDate " +
             "order by live.comment_num desc;", nativeQuery = true)
     public List<Live> getLiveOrderByCommentNum(@Param("startDate")String startDate, @Param("endDate")String endDate);
+
+    @Query("select sum(v.viewNum) from Live v")
+    public Long getAllViewNum();
 }
