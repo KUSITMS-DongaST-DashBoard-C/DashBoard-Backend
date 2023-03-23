@@ -11,8 +11,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class GetExpectedUploadRes {
+public class GetFilteredLife {
+
     private String title;
     private String category;
-    private Date expectedUploadTime;
+    private Date uploadDate;
+    private Long viewNum;
+    private Long commentNum;
+    private Long likeNum;
 }
