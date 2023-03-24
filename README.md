@@ -1,12 +1,8 @@
-# README.md
-
 # 💊 MEDIFLIX Admin Dashboard Backend 💊
 
-## 프로젝트 기간 : 2023. 03. 04 ~ 2023. 03. 24
+## 📆 프로젝트 기간: 2023. 03. 04 ~ 2023. 03. 24
 
-## Team: C조
-
-## 프로젝트 소개
+## ✨ 프로젝트 소개
 
 정량적인 데이터 분석을 통한 마케팅 인사이트를 얻기 위해, 
 <br/>유저 통계와 콘텐츠 통계를 종합적으로 볼 수 있는 **어드민 페이지 대시보드**를 기획하였습니다! 
@@ -14,14 +10,14 @@
 <img width="500" alt="Untitled (4)" src="https://user-images.githubusercontent.com/86006389/227492020-940cbc5e-812d-46c7-b700-d95156ef2036.png"> <img width="500" alt="Untitled (5)" src="https://user-images.githubusercontent.com/86006389/227492077-2720c5fa-e863-4cc5-b8c2-cd18217bee9d.png">
 
 
-
-### 대시보드의 필요성
+### 📈 대시보드의 필요성
 
 [`메디플릭스`](https://www.mediflix.co.kr) 는, </br>
 대시보드 자체의 부재로 인해 유저 트래픽을 활용한 마케팅 인사이트를 얻고자 하는 목표를 이루기 어려운 상황입니다.  특히나 사이트 형태가 기존 종합 포털 형태가 아닌 OTT 서비스를 제공하고 있다는 점에서 볼 때, 세부 콘텐츠 데이터 지표 분석이 중요한 상황입니다.  이러한 점을 종합적으로 미루어 봤을때, **유저 통계와 콘텐츠 통계를 종합적으로 볼 수 있는 대시보드** 는 필수불가결했습니다. 
 
-## 서비스 기능
+</br>
 
+## 📌 서비스 기능
 
 ### 간단요약
 
@@ -189,8 +185,9 @@
 
 </details>  
          
+<br/>
 
-## 기술 스택
+## 🛠 기술 스택
 
 ### 프론트엔드
 
@@ -212,23 +209,27 @@
 
 <img src="https://user-images.githubusercontent.com/86006389/227504208-31e60f6a-caa2-429b-8cdc-67e1611edb67.png" height="150">
 
+<br/>
 
-## ERD 구조
+## 📃 ERD 구조
 
 <img src="https://user-images.githubusercontent.com/86006389/227504260-281e3a3c-16db-417b-b002-4d5ff3d4f7c1.png" height="500">
 
+<br/>
 
-## 시스템 아키텍쳐
+## ⚡️ 시스템 아키텍쳐
 
+<br/>
 
 <img src="https://user-images.githubusercontent.com/86006389/227504299-bb736c51-8dee-42e5-8916-28898a51fb48.png" height="500">
 
-## CI/CD
+## 🚙 Backend CI/CD
 
 ![Untitled (12)](https://user-images.githubusercontent.com/86006389/227504331-d255b27d-e8be-45c3-9cb5-fc5387b0538a.png)
 
+<br/>
 
-## 커밋 컨벤션
+## 📍 커밋 컨벤션
 |commit 명|commit 뜻|
 |:-:|:---:|
 |Feat|새로운 기능 추가|
@@ -239,17 +240,19 @@
 |Test|테스트 코드, 리펙토링 테스트 코드 추가|
 |Chore|빌드 업무 수정, 패키지 매니저 추가|
 
+<br/>
 
-## 팀원 소개
+## 💖 Team: C조 팀원 소개
 
 ### 기획팀
 |송예지|문서현|
 |:-:|:---:|
-||<img src="https://user-images.githubusercontent.com/86006389/227505490-2175228a-346e-42f8-98eb-02af4a6996dd.png" height="100">|
+|<img src="https://user-images.githubusercontent.com/86006389/227517898-814945c7-aa17-4eb5-9ca1-1f51ff322590.png" width="100">|<img src="https://user-images.githubusercontent.com/86006389/227505490-2175228a-346e-42f8-98eb-02af4a6996dd.png" width="100">|
 
 ### 디자인팀
 |김혜림|
 |:-:|
+|<img src="https://user-images.githubusercontent.com/86006389/227517840-6794bef4-49fb-4256-959a-aaa6b882233f.png" width="100">
 
 ### 프론트엔드팀
 |이안진|신향아|
@@ -261,7 +264,7 @@
 ### 백엔드팀
 |김민수|장진우|
 |:-:|:---:|
-|<img src="https://avatars.githubusercontent.com/u/86006389?v=4" alt="minsu20" width="100" height="100">|<img src="https://user-images.githubusercontent.com/86006389/227506433-e176033b-3036-4342-aaf9-98a450dc051c.png" alt=JINU-CHANG  height="100">|
+|<img src="https://avatars.githubusercontent.com/u/86006389?v=4" alt="minsu20" width="100" height="100">|<img src="https://user-images.githubusercontent.com/86006389/227506433-e176033b-3036-4342-aaf9-98a450dc051c.png" alt=JINU-CHANG height="100">|
 |[minsu20](https://github.com/minsu20)|[JINU-CHANG](https://github.com/JINU-CHANG)|
 
 
