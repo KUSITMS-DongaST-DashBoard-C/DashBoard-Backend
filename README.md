@@ -261,5 +261,7 @@
 ### 백엔드팀
 |김민수|장진우|
 |:-:|:---:|
-|<img src="https://avatars.githubusercontent.com/u/86006389?v=4" alt="minsu20" width="100" height="100">|<img src="https://user-images.githubusercontent.com/86006389/227494127-35ffc867-155f-4ab2-9683-fd4eae8941f5.png" alt=JINU-CHANG width="100" height="100">|
+|<img src="https://avatars.githubusercontent.com/u/86006389?v=4" alt="minsu20" width="100" height="100">|<img src="https://user-images.githubusercontent.com/86006389/227506433-e176033b-3036-4342-aaf9-98a450dc051c.png" alt=JINU-CHANG  height="100">|
 |[minsu20](https://github.com/minsu20)|[JINU-CHANG](https://github.com/JINU-CHANG)|
+
+
