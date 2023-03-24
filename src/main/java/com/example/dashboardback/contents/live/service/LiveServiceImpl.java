@@ -40,11 +40,11 @@ public class LiveServiceImpl implements LiveService {
 
     @Override
     public GetFilteredLiveRes getLiveOrderByViewNum(DateReq dateReq, String orderBy) {
-        Long viewNum = liveRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+        Long viewNum = liveRepository.getViewNum(dateReq.getEndDate(), dateReq.getStartDate());
         List<Live> liveList = null;
 
-        if(orderBy.equals("asc")) liveList = liveRepository.getLiveOrderbyViewNumASC(dateReq.getStartDate(),dateReq.getEndDate());
-        else liveList=liveRepository.getLiveOrderbyViewNumDESC(dateReq.getStartDate(),dateReq.getEndDate());
+        if(orderBy.equals("asc")) liveList = liveRepository.getLiveOrderbyViewNumASC(dateReq.getEndDate(), dateReq.getStartDate());
+        else liveList=liveRepository.getLiveOrderbyViewNumDESC(dateReq.getEndDate(), dateReq.getStartDate());
 
         List<GetFilteredLive> collect = liveList.stream()
                 .map(m -> new GetFilteredLive(m.getTitle(), m.getThumbnailUrl(),m.getLiveDate(),m.getViewNum(), m.getApplicableNum(), m.getApplicantNum()))
@@ -55,9 +55,9 @@ public class LiveServiceImpl implements LiveService {
 
     @Override
     public GetFilteredLiveRes getLiveOrderByApplicantNum(DateReq dateReq) {
-        Long viewNum = liveRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+        Long viewNum = liveRepository.getViewNum(dateReq.getEndDate(), dateReq.getStartDate());
 
-        List<GetFilteredLive> collect = liveRepository.getLiveOrderByApplicantNum(dateReq.getStartDate(),dateReq.getEndDate()).stream()
+        List<GetFilteredLive> collect = liveRepository.getLiveOrderByApplicantNum(dateReq.getEndDate(), dateReq.getStartDate()).stream()
                 .map(m -> new GetFilteredLive(m.getTitle(), m.getThumbnailUrl(),m.getLiveDate(),m.getViewNum(), m.getApplicableNum(), m.getApplicantNum()))
                 .collect(Collectors.toList());
         return new GetFilteredLiveRes(viewNum,collect);
@@ -65,9 +65,9 @@ public class LiveServiceImpl implements LiveService {
 
     @Override
     public GetFilteredLiveRes getLiveOrderByCommentNum(DateReq dateReq) {
-        Long viewNum = liveRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+        Long viewNum = liveRepository.getViewNum(dateReq.getEndDate(), dateReq.getStartDate());
 
-        List<GetFilteredLive> collect = liveRepository.getLiveOrderByCommentNum(dateReq.getStartDate(),dateReq.getEndDate()).stream()
+        List<GetFilteredLive> collect = liveRepository.getLiveOrderByCommentNum(dateReq.getEndDate(), dateReq.getStartDate()).stream()
                 .map(m -> new GetFilteredLive(m.getTitle(), m.getThumbnailUrl(),m.getLiveDate(),m.getViewNum(), m.getApplicableNum(), m.getApplicantNum()))
                 .collect(Collectors.toList());
         return new GetFilteredLiveRes(viewNum,collect);
