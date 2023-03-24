@@ -42,11 +42,11 @@ public class LifeServiceImpl implements LifeService {
 
     @Override
     public GetFilteredLifeRes getLifeOrderByViewNum(DateReq dateReq, String orderBy) {
-        Long viewNum = lifeRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+        Long viewNum = lifeRepository.getViewNum(dateReq.getEndDate(),dateReq.getStartDate());
         List<Life> lifeList = null;
 
-        if(orderBy.equals("asc")) lifeList = lifeRepository.getLifeOrderbyViewNumASC(dateReq.getStartDate(),dateReq.getEndDate());
-        else lifeList=lifeRepository.getLifeOrderbyViewNumDESC(dateReq.getStartDate(),dateReq.getEndDate());
+        if(orderBy.equals("asc")) lifeList = lifeRepository.getLifeOrderbyViewNumASC(dateReq.getEndDate(),dateReq.getStartDate());
+        else lifeList=lifeRepository.getLifeOrderbyViewNumDESC(dateReq.getEndDate(),dateReq.getStartDate());
 
         List<GetFilteredLife> collect = lifeList.stream()
                 .map(m -> new GetFilteredLife(m.getTitle(),m.getCategory(),m.getUploadDate(),m.getViewNum(),m.getCommentNum(),m.getLikeNum()))
@@ -57,9 +57,9 @@ public class LifeServiceImpl implements LifeService {
 
     @Override
     public GetFilteredLifeRes getLifeOrderByCommentNum(DateReq dateReq) {
-        Long viewNum = lifeRepository.getViewNum(dateReq.getStartDate(),dateReq.getEndDate());
+        Long viewNum = lifeRepository.getViewNum(dateReq.getEndDate(), dateReq.getStartDate());
 
-        List<GetFilteredLife> collect = lifeRepository.getLifeOrderByCommentNum(dateReq.getStartDate(),dateReq.getEndDate()).stream()
+        List<GetFilteredLife> collect = lifeRepository.getLifeOrderByCommentNum(dateReq.getEndDate(),dateReq.getStartDate()).stream()
                 .map(m -> new GetFilteredLife(m.getTitle(),m.getCategory(),m.getUploadDate(),m.getViewNum(),m.getCommentNum(),m.getLikeNum()))
                 .collect(Collectors.toList());
         return new GetFilteredLifeRes(viewNum,collect);

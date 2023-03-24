@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ private final LiveService liveService;
     @GetMapping("/detail/view/{orderBy}")
     public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByViewNum(
             @PathVariable("orderBy") String orderBy, //asc: 오름차순(조회수 낮은순), desc:내림차순(조회수 높은순)
-            @RequestBody DateReq dateReq){
+            @Valid @ModelAttribute DateReq dateReq){
         GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByViewNum(dateReq, orderBy);
         return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
     }
@@ -47,7 +48,7 @@ private final LiveService liveService;
     @ApiOperation(value = "Live 세부 컨텐츠-신청인원수에 따른 정렬", notes = "신청인원 수에 따른 세부 컨텐츠를 보여줍니다.")
     @GetMapping("/detail/applicant")
     public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByApplicant(
-            @RequestBody DateReq dateReq){
+            @Valid@ModelAttribute DateReq dateReq){
         GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByApplicantNum(dateReq);
         return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
     }
@@ -55,7 +56,7 @@ private final LiveService liveService;
     @ApiOperation(value = "Live 세부 컨텐츠-댓글 수에 따른 정렬", notes = "댓글 수에 따른 세부 컨텐츠를 보여줍니다.")
     @GetMapping("/detail/comment")
     public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByComment(
-            @RequestBody DateReq dateReq){
+            @Valid@ModelAttribute DateReq dateReq){
         GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByCommentNum(dateReq);
         return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
     }
