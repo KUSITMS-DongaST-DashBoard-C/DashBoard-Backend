@@ -52,12 +52,4 @@ private final LiveService liveService;
         GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByApplicantNum(dateReq);
         return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
     }
-
-    @ApiOperation(value = "Live 세부 컨텐츠-댓글 수에 따른 정렬", notes = "댓글 수에 따른 세부 컨텐츠를 보여줍니다.")
-    @GetMapping("/detail/comment")
-    public ResponseEntity<ResponseDto<GetFilteredLiveRes>> getOrderByComment(
-            @Valid@ModelAttribute DateReq dateReq){
-        GetFilteredLiveRes getFilteredLiveRes = this.liveService.getLiveOrderByCommentNum(dateReq);
-        return ResponseEntity.ok(ResponseDto.create(LiveConstants.EChartResponseMessage. GET_LIVEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLiveRes));
-    }
 }

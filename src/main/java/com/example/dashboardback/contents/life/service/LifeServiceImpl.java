@@ -64,4 +64,14 @@ public class LifeServiceImpl implements LifeService {
                 .collect(Collectors.toList());
         return new GetFilteredLifeRes(viewNum,collect);
     }
+
+    @Override
+    public GetFilteredLifeRes getLifeOrderByLikeNum(DateReq dateReq) {
+        Long viewNum = lifeRepository.getViewNum(dateReq.getEndDate(), dateReq.getStartDate());
+
+        List<GetFilteredLife> collect = lifeRepository.getLifeOrderByLikeNum(dateReq.getEndDate(),dateReq.getStartDate()).stream()
+                .map(m -> new GetFilteredLife(m.getTitle(),m.getCategory(),m.getUploadDate(),m.getViewNum(),m.getCommentNum(),m.getLikeNum()))
+                .collect(Collectors.toList());
+        return new GetFilteredLifeRes(viewNum,collect);
+    }
 }
