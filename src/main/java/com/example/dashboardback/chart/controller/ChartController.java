@@ -5,11 +5,9 @@ import com.example.dashboardback.chart.constant.ChartConstants.EChartResponseMes
 import com.example.dashboardback.chart.dto.Res.GetDailyData;
 import com.example.dashboardback.chart.dto.Res.GetMajorNumRes;
 import com.example.dashboardback.chart.dto.Res.city.GetCityTrafficRes;
-import com.example.dashboardback.chart.dto.au.AuDto;
 import com.example.dashboardback.chart.dto.au.AuDto.DauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.MauInfoResponse;
 import com.example.dashboardback.chart.dto.au.AuDto.WauInfoResponse;
-import com.example.dashboardback.chart.dto.contents.ContentsDto;
 import com.example.dashboardback.chart.dto.contents.ContentsDto.GetContentsRatio;
 import com.example.dashboardback.chart.service.ChartService;
 import com.example.dashboardback.global.dto.ResponseDto;

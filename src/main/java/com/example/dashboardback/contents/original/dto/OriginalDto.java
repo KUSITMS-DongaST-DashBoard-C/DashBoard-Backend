@@ -62,11 +62,11 @@ public abstract class OriginalDto {
         private Integer reviewNum;
         private Integer likeNum;
         private Integer commentNum;
-        private Long viewsNum;
+        private Long viewNum;
         private String major;
 
         @QueryProjection
-        public DetailInfoResponse(String thumbnailUrl, String seriesName, Integer episodeNum, LocalDateTime uploadDate, Integer reviewNum, Integer likeNum, Integer commentNum, Long viewsNum, String major){
+        public DetailInfoResponse(String thumbnailUrl, String seriesName, Integer episodeNum, LocalDateTime uploadDate, Integer reviewNum, Integer likeNum, Integer commentNum, Long viewNum, String major){
             this.thumbnailUrl=thumbnailUrl;
             this.seriesName=seriesName;
             this.episodeNum=episodeNum;
@@ -74,7 +74,7 @@ public abstract class OriginalDto {
             this.reviewNum=reviewNum;
             this.likeNum=likeNum;
             this.commentNum=commentNum;
-            this.viewsNum=viewsNum;
+            this.viewNum=viewNum;
             this.major=major;
         }
     }
