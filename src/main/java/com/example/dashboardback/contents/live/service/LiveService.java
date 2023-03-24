@@ -14,4 +14,5 @@ public interface LiveService {
     GetFilteredLiveRes getLiveOrderByApplicantNum(DateReq dateReq);
     GetFilteredLiveRes getLiveOrderByCommentNum(DateReq dateReq);
 
+
 }

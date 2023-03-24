@@ -59,4 +59,12 @@ public class LifeController {
         GetFilteredLifeRes getFilteredLifeRes = this.lifeService.getLifeOrderByCommentNum(dateReq);
         return ResponseEntity.ok(ResponseDto.create(LifeConstants.EChartResponseMessage.GET_LIFEORDERBYCOMMENTNUM_SUCCESS.getMessage(), getFilteredLifeRes));
     }
+
+    @ApiOperation(value = "Life 세부 컨텐츠-좋아요 수에 따른 정렬", notes = "좋아요 수에 따른 세부 컨텐츠를 보여줍니다.")
+    @GetMapping("/detail/like")
+    public ResponseEntity<ResponseDto<GetFilteredLifeRes>> getOrderByLike(
+            @Valid@ModelAttribute DateReq dateReq){
+        GetFilteredLifeRes getFilteredLifeRes = this.lifeService.getLifeOrderByLikeNum(dateReq);
+        return ResponseEntity.ok(ResponseDto.create(LifeConstants.EChartResponseMessage.GET_LIFEORDERBYLIKENUM_SUCCESS.getMessage(), getFilteredLifeRes));
+    }
 }

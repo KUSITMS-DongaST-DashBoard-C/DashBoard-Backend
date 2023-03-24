@@ -49,4 +49,10 @@ public interface LifeRepository extends JpaRepository<Life, Long> {
             "where life.upload_date>=:endDate and life.upload_date<=:startDate " +
             "order by life.comment_num desc;", nativeQuery = true)
     public List<Life> getLifeOrderByCommentNum(@Param("startDate")String startDate, @Param("endDate")String endDate);
+
+    @Query(value="select * " +
+            "from life " +
+            "where life.upload_date>=:endDate and life.upload_date<=:startDate " +
+            "order by life.like_num desc;", nativeQuery = true)
+    public List<Life> getLifeOrderByLikeNum(@Param("startDate")String startDate, @Param("endDate")String endDate);
 }
