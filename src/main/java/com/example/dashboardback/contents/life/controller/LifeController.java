@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -44,7 +45,9 @@ public class LifeController {
     @GetMapping("/detail/view/{orderBy}")
     public ResponseEntity<ResponseDto<GetFilteredLifeRes>> getOrderByViewNum(
             @PathVariable("orderBy") String orderBy, //asc: 오름차순(조회수 낮은순), desc:내림차순(조회수 높은순)
-            @RequestBody DateReq dateReq){
+            @Valid @ModelAttribute DateReq dateReq){
+        log.info(dateReq.getStartDate() +" ");
+        log.info(orderBy +" ");
         GetFilteredLifeRes getFilteredLifeRes = this.lifeService.getLifeOrderByViewNum(dateReq, orderBy);
         return ResponseEntity.ok(ResponseDto.create(LifeConstants.EChartResponseMessage.GET_LIFEORDERBYVIEWNUM_SUCCESS.getMessage(), getFilteredLifeRes));
     }
@@ -52,7 +55,7 @@ public class LifeController {
     @ApiOperation(value = "Life 세부 컨텐츠-댓글 수에 따른 정렬", notes = "댓글 수에 따른 세부 컨텐츠를 보여줍니다.")
     @GetMapping("/detail/comment")
     public ResponseEntity<ResponseDto<GetFilteredLifeRes>> getOrderByComment(
-            @RequestBody DateReq dateReq){
+            @Valid@ModelAttribute DateReq dateReq){
         GetFilteredLifeRes getFilteredLifeRes = this.lifeService.getLifeOrderByCommentNum(dateReq);
         return ResponseEntity.ok(ResponseDto.create(LifeConstants.EChartResponseMessage.GET_LIFEORDERBYCOMMENTNUM_SUCCESS.getMessage(), getFilteredLifeRes));
     }
